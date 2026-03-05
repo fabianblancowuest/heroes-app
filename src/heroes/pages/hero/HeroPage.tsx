@@ -132,9 +132,9 @@ export const HeroPage = () => {
 			</div>
 
 			{/* Main Content */}
-			<div className="max-w-7xl mx-auto px-6 py-8">
+			<div className="max-w-7xl mx-auto py-8">
 				<Tabs defaultValue="info" className="w-full">
-					<TabsList className="grid w-full grid-cols-4 mb-8">
+					<TabsList className="grid w-full grid-cols-4 mb-8 flexible">
 						<TabsTrigger value="info" className="flex items-center gap-2">
 							<Award className="w-4 h-4" />
 							Información
@@ -154,7 +154,7 @@ export const HeroPage = () => {
 					</TabsList>
 
 					<TabsContent value="stats" className="space-y-6">
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(245px,auto))] justify-between">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(245px,auto))] justify-between gap-4">
 							{/* Strength */}
 							<Card className="text-center">
 								<CardContent className="pt-6">
@@ -169,7 +169,7 @@ export const HeroPage = () => {
 									</div>
 									<Progress
 										value={hero.strength * 10}
-										className="h-2"
+										className="h-2 mobile-progress"
 										activeColor="bg-orange-700"
 									/>
 								</CardContent>
@@ -189,7 +189,7 @@ export const HeroPage = () => {
 									</div>
 									<Progress
 										value={hero.intelligence * 10}
-										className="h-2"
+										className="h-2 mobile-progress"
 										activeColor="bg-blue-700"
 									/>
 								</CardContent>
@@ -209,7 +209,7 @@ export const HeroPage = () => {
 									</div>
 									<Progress
 										value={hero.speed * 10}
-										className="h-2"
+										className="h-2 mobile-progress"
 										activeColor="bg-green-700"
 									/>
 								</CardContent>
@@ -229,7 +229,7 @@ export const HeroPage = () => {
 									</div>
 									<Progress
 										value={hero.durability * 10}
-										className="h-2"
+										className="h-2 mobile-progress"
 										activeColor="bg-purple-700"
 									/>
 								</CardContent>
@@ -242,6 +242,28 @@ export const HeroPage = () => {
 								<CardTitle className="text-center">
 									Comparación de Habilidades
 								</CardTitle>
+								<div className="mobile-on">
+									<section>
+										<div>
+											<span>Fuerza</span> <div className="box bg-red-700"></div>
+										</div>
+										<div>
+											<span>Inteligencia</span>{" "}
+											<div className="box bg-blue-700"></div>
+										</div>
+									</section>
+									{/*TODO: Separar */}
+									<section>
+										<div>
+											<span>Velocidad</span>
+											<div className="box bg-green-700"></div>
+										</div>
+										<div>
+											<span>Durabilidad</span>
+											<div className="box bg-purple-700"></div>
+										</div>
+									</section>
+								</div>
 							</CardHeader>
 							<CardContent>
 								<div
@@ -254,7 +276,9 @@ export const HeroPage = () => {
 									className="space-y-4 "
 								>
 									<div className="flex items-center gap-4">
-										<div className="w-24 text-sm font-medium">Fuerza</div>
+										<div className="w-24 text-sm font-medium no-mobile">
+											Fuerza
+										</div>
 										<div className="flex-1">
 											<Progress
 												value={hero.strength * 10}
@@ -267,7 +291,9 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<div className="flex items-center gap-4">
-										<div className="w-24 text-sm font-medium">Inteligencia</div>
+										<div className="w-24 text-sm font-medium no-mobile">
+											Inteligencia
+										</div>
 										<div className="flex-1">
 											<Progress
 												value={hero.intelligence * 10}
@@ -280,7 +306,9 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<div className="flex items-center gap-4">
-										<div className="w-24 text-sm font-medium">Velocidad</div>
+										<div className="w-24 text-sm font-medium no-mobile">
+											Velocidad
+										</div>
 										<div className="flex-1">
 											<Progress
 												value={hero.speed * 10}
@@ -293,7 +321,9 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<div className="flex items-center gap-4">
-										<div className="w-24 text-sm font-medium">Resistencia</div>
+										<div className="w-24 text-sm font-medium no-mobile">
+											Resistencia
+										</div>
 										<div className="flex-1">
 											<Progress
 												value={hero.durability * 10}

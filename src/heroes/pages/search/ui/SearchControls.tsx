@@ -9,6 +9,7 @@ import {
 	AccordionContent,
 	AccordionItem,
 } from "@/components/ui/accordion";
+import "@/index.css";
 
 export const SearchControls = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -50,7 +51,7 @@ export const SearchControls = () => {
 				</div>
 
 				{/* Action buttons */}
-				<div className="flex gap-2">
+				<div className="flex gap-2 filters">
 					<Button
 						variant={
 							activeAccordion === "advanced-filters" ? "default" : "outline"
@@ -72,20 +73,20 @@ export const SearchControls = () => {
 						<Filter className="h-4 w-4 mr-2" />
 						Filters
 					</Button>
-
+					{/* 
 					<Button variant="outline" className="h-12">
 						<SortAsc className="h-4 w-4 mr-2" />
 						Sort by Name
-					</Button>
+					</Button> */}
 
-					<Button variant="outline" className="h-12">
+					{/* <Button variant="outline" className="h-12">
 						<Grid className="h-4 w-4" />
-					</Button>
+					</Button> */}
 
-					<Button className="h-12">
+					{/* <Button className="h-12">
 						<Plus className="h-4 w-4 mr-2" />
 						Add Character
-					</Button>
+					</Button> */}
 				</div>
 			</div>
 

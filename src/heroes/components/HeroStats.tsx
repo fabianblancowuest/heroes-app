@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { HeroStatCard } from "./HeroStatCard";
 import { useHeroSummary } from "../hooks/useHeroSummary";
 import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
+import "@/index.css";
 
 export const HeroStats = () => {
 	const { data: summary } = useHeroSummary();
@@ -21,7 +22,7 @@ export const HeroStats = () => {
 				icon={<Users className="h-4 w-4 text-muted-foreground" />}
 			>
 				<div className="text-2xl font-bold">{summary?.totalHeroes}</div>
-				<div className="flex gap-1 mt-2">
+				<div className="flex gap-1 mt-2 badge-mobile">
 					<Badge variant="secondary" className="text-xs">
 						{summary?.heroCount} Héroes
 					</Badge>

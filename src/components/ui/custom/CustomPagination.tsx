@@ -23,7 +23,7 @@ export const CustomPagination = ({ totalPages }: Props) => {
 	};
 
 	return (
-		<div className="flex items-center justify-center space-x-2 paginator">
+		<div className="flex items-center justify-center space-x-2 paginator pb-3">
 			<Button
 				variant="outline"
 				size="sm"
@@ -36,6 +36,7 @@ export const CustomPagination = ({ totalPages }: Props) => {
 
 			{Array.from({ length: totalPages }).map((_, index) => (
 				<Button
+					className="pagination-buttons"
 					key={index}
 					variant={page === index + 1 ? "default" : "outline"}
 					size="sm"

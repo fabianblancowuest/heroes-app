@@ -147,12 +147,78 @@
 
 	.flexible button {
 		width: 100%;
-		padding-top: 5px;
-		padding-bottom: 5px;
+		padding-top: 8px;
+		padding-bottom: 8px;
 	}
 
-	.paginator {
+	/* .paginator {
 		flex-direction: column;
 		gap: 10px;
+	} */
+
+	.no-mobile {
+		display: none;
+	}
+
+	.mobile-on {
+		margin-top: 10px;
+		display: flex;
+		flex-direction: row;
+		gap: 20px;
+		justify-content: center;
+		font-size: 14px;
+		font-weight: 500;
+		max-width: 100%;
+	}
+
+	.mobile-on div {
+		display: flex;
+		gap: 5px;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.mobile-on div span {
+		min-width: 100px;
+		line-height: 2;
+	}
+
+	.mobile-progress {
+		width: 90%;
+		height: 10px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	.badge-mobile {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.badge-mobile span {
+		padding: 5px 10px;
+	}
+
+	.filters {
+		flex-direction: column;
+	}
+}
+
+.box {
+	width: 15px;
+	height: 15px;
+	/* border-radius: 50%; */
+}
+
+@media (max-width: 900px) {
+	.pagination-buttons {
+		display: none;
+	}
+}
+
+@media (min-width: 768px) {
+	.mobile-on {
+		display: none;
 	}
 }
