@@ -1,6 +1,7 @@
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "../button";
 import { useSearchParams } from "react-router";
+import "@/index.css";
 
 interface Props {
 	totalPages: number;
@@ -22,7 +23,7 @@ export const CustomPagination = ({ totalPages }: Props) => {
 	};
 
 	return (
-		<div className="flex items-center justify-center space-x-2">
+		<div className="flex items-center justify-center space-x-2 paginator">
 			<Button
 				variant="outline"
 				size="sm"

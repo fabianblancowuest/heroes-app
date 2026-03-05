@@ -9,6 +9,7 @@ import { CustomBreadcrumbs } from "@/components/ui/custom/CustomBreadcrumbs";
 import { useHeroSummary } from "@/heroes/hooks/useHeroSummary";
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero";
 import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext";
+import "@/index.css";
 
 export const HomePage = () => {
 	// TODO: para más adelante hacer un custom hook useHomePage o useQueryParameters para reducir lógica del componente
@@ -54,7 +55,7 @@ export const HomePage = () => {
 
 				{/* Tabs */}
 				<Tabs value={selectedTab} className="mb-8">
-					<TabsList className="grid w-full grid-cols-4">
+					<TabsList className="grid w-full grid-cols-4 flexible">
 						<TabsTrigger
 							value="all"
 							onClick={() => handleSearchParams("all", "all")}

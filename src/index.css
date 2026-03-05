@@ -132,3 +132,27 @@
 	margin-left: auto;
 	margin-right: auto;
 } */
+
+.flexible {
+	display: flex;
+}
+
+@media (max-width: 768px) {
+	.flexible {
+		display: flex;
+		flex-direction: column;
+		min-height: min-content;
+		gap: 10px;
+	}
+
+	.flexible button {
+		width: 100%;
+		padding-top: 5px;
+		padding-bottom: 5px;
+	}
+
+	.paginator {
+		flex-direction: column;
+		gap: 10px;
+	}
+}
