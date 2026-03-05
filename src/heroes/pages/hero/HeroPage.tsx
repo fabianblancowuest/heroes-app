@@ -133,11 +133,11 @@ export const HeroPage = () => {
 
 			{/* Main Content */}
 			<div className="max-w-7xl mx-auto px-6 py-8">
-				<Tabs defaultValue="stats" className="w-full">
+				<Tabs defaultValue="info" className="w-full">
 					<TabsList className="grid w-full grid-cols-4 mb-8">
-						<TabsTrigger value="stats" className="flex items-center gap-2">
-							<Gauge className="w-4 h-4" />
-							Estadísticas
+						<TabsTrigger value="info" className="flex items-center gap-2">
+							<Award className="w-4 h-4" />
+							Información
 						</TabsTrigger>
 						<TabsTrigger value="powers" className="flex items-center gap-2">
 							<Zap className="w-4 h-4" />
@@ -147,9 +147,9 @@ export const HeroPage = () => {
 							<Users className="w-4 h-4" />
 							Equipo
 						</TabsTrigger>
-						<TabsTrigger value="info" className="flex items-center gap-2">
-							<Award className="w-4 h-4" />
-							Información
+						<TabsTrigger value="stats" className="flex items-center gap-2">
+							<Gauge className="w-4 h-4" />
+							Estadísticas
 						</TabsTrigger>
 					</TabsList>
 
