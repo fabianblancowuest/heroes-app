@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import {
 	Search,
 	Filter,
+	Trash2,
 	//  SortAsc, Grid,
 	// Plus
 } from "lucide-react";
@@ -81,6 +82,7 @@ export const SearchControls = () => {
 							cleanInputRef();
 						}}
 					>
+						<Trash2 />
 						Limpiar Todo
 					</Button>
 					<Button
