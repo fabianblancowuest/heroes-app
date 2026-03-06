@@ -18,10 +18,10 @@ import "@/index.css";
 
 export const SearchControls = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
-	const inputRef = useRef<HTMLInputElement>(null);
+	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const activeAccordion = searchParams.get("active-accordion") ?? "";
-	const selectedStrength = Number(searchParams.get("strength") ?? "1");
+	const selectedStrength = Number(searchParams.get("strength") ?? "0");
 	const selectedSpeed = Number(searchParams.get("speed") ?? "0");
 	const selectedDurabiltiy = Number(searchParams.get("durability") ?? "0");
 	const selectedIntelligence = Number(searchParams.get("intelligence") ?? "0");
@@ -37,6 +37,12 @@ export const SearchControls = () => {
 		if (event.key === "Enter") {
 			const value = inputRef.current?.value ?? "";
 			setQueryParams("name", value);
+		}
+	};
+
+	const cleanInputRef = () => {
+		if (inputRef.current) {
+			inputRef.current.value = "";
 		}
 	};
 
@@ -68,17 +74,27 @@ export const SearchControls = () => {
 						Buscar
 					</Button>
 					<Button
+						className="h-12"
+						variant={"outline"}
+						onClick={() => {
+							setSearchParams({});
+							cleanInputRef();
+						}}
+					>
+						Limpiar Todo
+					</Button>
+					<Button
 						variant={
 							activeAccordion === "advanced-filters" ? "default" : "outline"
 						}
 						className="h-12"
 						onClick={() => {
 							if (activeAccordion === "advanced-filters") {
-								// setQueryParams("active-accordion", "");
-								setSearchParams((prev) => {
-									prev.delete("active-accordion");
-									return prev;
-								});
+								setQueryParams("active-accordion", "");
+								// setSearchParams((prev) => {
+								// prev.delete("active-accordion");
+								// return prev;
+								// });
 								return;
 							}
 
@@ -88,6 +104,7 @@ export const SearchControls = () => {
 						<Filter className="h-4 w-4 mr-2" />
 						Filtros
 					</Button>
+
 					{/* 
 					<Button variant="outline" className="h-12">
 						<SortAsc className="h-4 w-4 mr-2" />
@@ -112,13 +129,12 @@ export const SearchControls = () => {
 				defaultValue="item-1"
 				value={activeAccordion}
 			>
-				<AccordionItem value="advanced-filters">
+				<AccordionItem value="advanced-filters" className="advanced-filters">
 					{/* <AccordionTrigger>Filtros avanzados</AccordionTrigger> */}
 					<AccordionContent>
 						<div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
 							<div className="flex justify-between items-center mb-4">
 								<h3 className="text-lg font-semibold">Filtros Avanzados</h3>
-								<Button variant="ghost">Limpiar Todo</Button>
 							</div>
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
 								<div className="space-y-2">
