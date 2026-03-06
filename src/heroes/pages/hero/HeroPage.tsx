@@ -7,8 +7,17 @@ import { getHeroAction } from "../../actions/get-hero.action";
 import { Navigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import "@/index.css";
+import { CircularProgress } from "@/components/ui/circular-progress";
+import { useState, useEffect } from "react";
 
 export const HeroPage = () => {
+	// Animación barras circulares de habilidades
+	const [progress, setProgress] = useState(0);
+
+	// useEffect(() => {
+	// 	setTimeout(() => setProgress(value), 100);
+	// }, [value]);
+
 	const { idSlug = "" } = useParams();
 
 	const { data: hero, isError } = useQuery({
@@ -203,13 +212,21 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Fuerza</h3>
-									<div className="text-2xl font-bold text-orange-700 mb-2">
+									{/* <div className="text-2xl font-bold text-orange-700 mb-2">
 										{hero.strength}
-									</div>
-									<Progress
+									</div> */}
+									{/* <Progress
 										value={hero.strength * 10}
 										className="h-2 mobile-progress"
 										activeColor="bg-orange-700"
+									/> */}
+									<CircularProgress
+										value={hero.strength * 10}
+										stroke={12}
+										size={100}
+										color="text-red-700"
+										textColor="text-orange-700"
+										textSize="text-xl"
 									/>
 								</CardContent>
 							</Card>
@@ -223,13 +240,21 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Inteligencia</h3>
-									<div className="text-2xl font-bold text-blue-700 mb-2">
+									{/* <div className="text-2xl font-bold text-blue-700 mb-2">
 										{hero.intelligence}
-									</div>
-									<Progress
+									</div> */}
+									{/* <Progress
 										value={hero.intelligence * 10}
 										className="h-2 mobile-progress"
 										activeColor="bg-blue-700"
+									/> */}
+									<CircularProgress
+										value={hero.intelligence * 10}
+										stroke={12}
+										size={100}
+										color="text-blue-700"
+										textColor="text-blue-700"
+										textSize="text-xl"
 									/>
 								</CardContent>
 							</Card>
@@ -243,13 +268,21 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Velocidad</h3>
-									<div className="text-2xl font-bold text-green-700 mb-2">
+									{/* <div className="text-2xl font-bold text-green-700 mb-2">
 										{hero.speed}
 									</div>
 									<Progress
 										value={hero.speed * 10}
 										className="h-2 mobile-progress"
 										activeColor="bg-green-700"
+									/> */}
+									<CircularProgress
+										value={hero.speed * 10}
+										stroke={12}
+										size={100}
+										color="text-green-700"
+										textColor="text-green-700"
+										textSize="text-xl"
 									/>
 								</CardContent>
 							</Card>
@@ -263,13 +296,21 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Resistencia</h3>
-									<div className="text-2xl font-bold text-purple-700 mb-2">
+									{/* <div className="text-2xl font-bold text-purple-700 mb-2">
 										{hero.durability}
-									</div>
-									<Progress
+									</div> */}
+									{/* <Progress
 										value={hero.durability * 10}
 										className="h-2 mobile-progress"
 										activeColor="bg-purple-700"
+									/> */}
+									<CircularProgress
+										value={hero.speed * 10}
+										stroke={12}
+										size={100}
+										color="text-purple-700"
+										textColor="text-purple-700"
+										textSize="text-xl"
 									/>
 								</CardContent>
 							</Card>
