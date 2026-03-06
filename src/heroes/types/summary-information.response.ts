@@ -6,4 +6,6 @@ export interface SummaryInformationResponse {
 	smartestHero: Hero;
 	heroCount: number;
 	villainCount: number;
+	antiheroCount: number;
+	civilianCount: number;
 }

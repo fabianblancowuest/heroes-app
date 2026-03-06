@@ -23,11 +23,25 @@ export const HeroStats = () => {
 			>
 				<div className="text-2xl font-bold">{summary?.totalHeroes}</div>
 				<div className="flex gap-1 mt-2 badge-mobile">
-					<Badge variant="secondary" className="text-xs">
+					<Badge
+						variant="secondary"
+						className="text-xs bg-green-600 text-white"
+					>
 						{summary?.heroCount} Héroes
 					</Badge>
 					<Badge variant="destructive" className="text-xs">
 						{summary?.villainCount} Villanos
+					</Badge>
+				</div>
+				<div className="flex gap-1 mt-2 badge-mobile">
+					<Badge
+						variant="secondary"
+						className="text-xs bg-purple-600 text-white"
+					>
+						{summary?.antiheroCount} Antihéroes
+					</Badge>
+					<Badge variant="secondary" className="text-xs bg-gray-500 text-white">
+						{summary?.civilianCount} Civiles
 					</Badge>
 				</div>
 			</HeroStatCard>

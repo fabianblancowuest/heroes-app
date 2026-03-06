@@ -21,7 +21,14 @@ export const HomePage = () => {
 	const category = searchParams.get("category") ?? "all";
 
 	const selectedTab = useMemo(() => {
-		const validTabs = ["all", "favorites", "heroes", "villains"];
+		const validTabs = [
+			"all",
+			"favorites",
+			"heroes",
+			"villains",
+			"antiheroes",
+			"civilians",
+		];
 
 		return validTabs.includes(activeTab) ? activeTab : "all";
 	}, [activeTab]);
@@ -73,13 +80,25 @@ export const HomePage = () => {
 							onClick={() => handleSearchParams("heroes", "hero")}
 							value="heroes"
 						>
-							Heroes ({summary?.heroCount})
+							Héroes ({summary?.heroCount})
 						</TabsTrigger>
 						<TabsTrigger
 							onClick={() => handleSearchParams("villains", "villain")}
 							value="villains"
 						>
 							Villanos ({summary?.villainCount})
+						</TabsTrigger>
+						<TabsTrigger
+							onClick={() => handleSearchParams("antiheroes", "antihero")}
+							value="antiheroes"
+						>
+							Antihéroes ({summary?.antiheroCount})
+						</TabsTrigger>
+						<TabsTrigger
+							onClick={() => handleSearchParams("civilians", "civilian")}
+							value="civilians"
+						>
+							Civiles ({summary?.civilianCount})
 						</TabsTrigger>
 					</TabsList>
 
@@ -89,7 +108,6 @@ export const HomePage = () => {
 					</TabsContent>
 					<TabsContent value="favorites">
 						{/* Mostrar todos los personajes favoritos */}
-						<h2>Favoritos</h2>
 						<HeroGrid heroes={favorites ?? []} />
 						{/* <HeroGrid heroes={HeroesResponse?.heroes ?? []} /> */}
 					</TabsContent>
@@ -99,6 +117,14 @@ export const HomePage = () => {
 					</TabsContent>
 					<TabsContent value="villains">
 						{/* Mostrar todos los villanos */}
+						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+					</TabsContent>
+					<TabsContent value="antiheroes">
+						{/* Mostrar todos los antihéroes */}
+						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+					</TabsContent>
+					<TabsContent value="civilians">
+						{/* Mostrar todos los civiles */}
 						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
 					</TabsContent>
 				</Tabs>

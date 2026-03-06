@@ -203,6 +203,10 @@
 	.filters {
 		flex-direction: column;
 	}
+
+	.input {
+		font-size: 13px;
+	}
 }
 
 .box {
@@ -221,4 +225,8 @@
 	.mobile-on {
 		display: none;
 	}
+}
+
+.input {
+	font-size: 14px;
 }
