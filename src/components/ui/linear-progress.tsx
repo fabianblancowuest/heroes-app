@@ -12,7 +12,7 @@ interface LinearProgressSVGProps {
 export const LinearProgressSVG = ({
 	value,
 	height = 10,
-	duration = 1000,
+	duration = 850,
 	delay = 0,
 	barClass = "text-green-600",
 	bgClass = "text-gray-200",
