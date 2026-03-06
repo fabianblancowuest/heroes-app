@@ -1,6 +1,5 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Shield, Zap, Brain, Gauge, Users, Star, Award } from "lucide-react";
 import { getHeroAction } from "../../actions/get-hero.action";
@@ -8,15 +7,10 @@ import { Navigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import "@/index.css";
 import { CircularProgress } from "@/components/ui/circular-progress";
-import { useState, useEffect } from "react";
+import { LinearProgressSVG } from "@/components/ui/linear-progress";
 
 export const HeroPage = () => {
 	// Animación barras circulares de habilidades
-	const [progress, setProgress] = useState(0);
-
-	// useEffect(() => {
-	// 	setTimeout(() => setProgress(value), 100);
-	// }, [value]);
 
 	const { idSlug = "" } = useParams();
 
@@ -360,10 +354,15 @@ export const HeroPage = () => {
 											Fuerza
 										</div>
 										<div className="flex-1">
-											<Progress
+											{/* <AnimatedProgress
 												value={hero.strength * 10}
 												className="h-3"
 												activeColor="bg-orange-700"
+											/> */}
+											<LinearProgressSVG
+												value={hero.strength * 10}
+												barClass="text-orange-700"
+												delay={250}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
@@ -375,10 +374,15 @@ export const HeroPage = () => {
 											Inteligencia
 										</div>
 										<div className="flex-1">
-											<Progress
+											{/* <AnimatedProgress
 												value={hero.intelligence * 10}
 												className="h-3"
 												activeColor="bg-blue-700"
+											/> */}
+											<LinearProgressSVG
+												value={hero.intelligence * 10}
+												barClass="text-blue-700"
+												delay={500}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
@@ -390,10 +394,15 @@ export const HeroPage = () => {
 											Velocidad
 										</div>
 										<div className="flex-1">
-											<Progress
+											{/* <AnimatedProgress
 												value={hero.speed * 10}
 												className="h-3"
 												activeColor="bg-green-700"
+											/> */}
+											<LinearProgressSVG
+												value={hero.speed * 10}
+												barClass="text-green-700"
+												delay={750}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
@@ -405,10 +414,15 @@ export const HeroPage = () => {
 											Resistencia
 										</div>
 										<div className="flex-1">
-											<Progress
+											{/* <AnimatedProgress
 												value={hero.durability * 10}
 												className="h-3"
 												activeColor="bg-purple-700"
+											/> */}
+											<LinearProgressSVG
+												value={hero.durability * 10}
+												barClass="text-purple-700"
+												delay={1000}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
