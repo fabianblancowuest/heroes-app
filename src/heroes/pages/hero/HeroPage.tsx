@@ -362,7 +362,7 @@ export const HeroPage = () => {
 											<LinearProgressSVG
 												value={hero.strength * 10}
 												barClass="text-orange-700"
-												delay={250}
+												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
@@ -382,7 +382,7 @@ export const HeroPage = () => {
 											<LinearProgressSVG
 												value={hero.intelligence * 10}
 												barClass="text-blue-700"
-												delay={500}
+												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
@@ -402,7 +402,7 @@ export const HeroPage = () => {
 											<LinearProgressSVG
 												value={hero.speed * 10}
 												barClass="text-green-700"
-												delay={750}
+												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
@@ -422,7 +422,7 @@ export const HeroPage = () => {
 											<LinearProgressSVG
 												value={hero.durability * 10}
 												barClass="text-purple-700"
-												delay={1000}
+												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
