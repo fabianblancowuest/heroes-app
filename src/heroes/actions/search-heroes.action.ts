@@ -28,22 +28,9 @@ export const searchHeroesAction = async (options: Options) => {
 		speed,
 	} = options;
 
-	if (
-		!name &&
-		!team &&
-		!category &&
-		!universe &&
-		!status &&
-		!strength &&
-		!durability &&
-		!intelligence &&
-		!speed
-	) {
-		return [];
-	}
-
-	const { data } = await heroApi.get<Hero[]>("/search", {
-		params: {
+	// limpiar parámetros vacíos o undefined
+	const params = Object.fromEntries(
+		Object.entries({
 			name,
 			team,
 			category,
@@ -53,7 +40,16 @@ export const searchHeroesAction = async (options: Options) => {
 			durability,
 			intelligence,
 			speed,
-		},
+		}).filter(([_, value]) => value !== undefined && value !== ""),
+	);
+
+	// si no hay filtros, no llamar al backend
+	if (Object.keys(params).length === 0) {
+		return [];
+	}
+
+	const { data } = await heroApi.get<Hero[]>("/search", {
+		params,
 	});
 
 	return data.map((hero) => ({

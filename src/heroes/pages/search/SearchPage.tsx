@@ -10,17 +10,48 @@ import { searchHeroesAction } from "@/heroes/actions/search-heroes.action";
 export const SearchPage = () => {
 	const [searchParams] = useSearchParams();
 
+	// Filtros avanzados
 	const name = searchParams.get("name") ?? undefined;
-	const strength = searchParams.get("strength") ?? undefined;
-	const speed = searchParams.get("speed") ?? undefined;
-	const durability = searchParams.get("durability") ?? undefined;
-	const intelligence = searchParams.get("intelligence") ?? undefined;
+	const team = searchParams.get("team") ?? undefined;
+	const category = searchParams.get("category") ?? undefined;
+	const universe = searchParams.get("universe") ?? undefined;
+	const status = searchParams.get("status") ?? undefined;
 
-	// TODO: useQuery
+	// Stats como números
+	const strength = searchParams.get("strength")
+		? Number(searchParams.get("strength"))
+		: undefined;
+	const speed = searchParams.get("speed")
+		? Number(searchParams.get("speed"))
+		: undefined;
+	const durability = searchParams.get("durability")
+		? Number(searchParams.get("durability"))
+		: undefined;
+	const intelligence = searchParams.get("intelligence")
+		? Number(searchParams.get("intelligence"))
+		: undefined;
+
+	// Limpiar filtros vacíos o "all"
+	const filters = Object.fromEntries(
+		Object.entries({
+			name,
+			team,
+			category,
+			universe,
+			status,
+			strength,
+			speed,
+			durability,
+			intelligence,
+		}).filter(
+			([_, value]) => value !== undefined && value !== "" && value !== "all",
+		),
+	);
+
+	// Buscar héroes con React Query
 	const { data: heroes = [] } = useQuery({
-		queryKey: ["search", { name, strength, durability, intelligence, speed }],
-		queryFn: () =>
-			searchHeroesAction({ name, strength, durability, intelligence, speed }),
+		queryKey: ["search", filters],
+		queryFn: () => searchHeroesAction(filters),
 		staleTime: 1000 * 60 * 5, // 5 minutos
 	});
 
@@ -30,21 +61,16 @@ export const SearchPage = () => {
 				title="Búsqueda de Superhéroes"
 				description="Descubre, explora y administra tus superhéroes y villanos favoritos"
 			/>
-			<CustomBreadcrumbs
-				currentPage="Buscador de héroes"
-				// breadcrumbs={[
-				// 	{ label: "Home1", to: "/" },
-				// 	{ label: "Home2", to: "/" },
-				// 	{ label: "Home3", to: "/" },
-				// ]}
-			/>
-			{/* Stats Dashboard */}
+
+			<CustomBreadcrumbs currentPage="Buscador de héroes" />
+
+			{/* Dashboard de stats */}
 			<HeroStats />
 
-			{/* Filter and search */}
+			{/* Controles de búsqueda y filtros */}
 			<SearchControls />
 
-			{/* Hero Screen */}
+			{/* Grid de héroes */}
 			<HeroGrid heroes={heroes} />
 		</>
 	);

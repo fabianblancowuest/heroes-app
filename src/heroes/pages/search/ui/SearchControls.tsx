@@ -1,13 +1,7 @@
 import { useSearchParams } from "react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-	Search,
-	Filter,
-	Trash2,
-	//  SortAsc, Grid,
-	// Plus
-} from "lucide-react";
+import { Search, Filter, Trash2 } from "lucide-react";
 import { useRef } from "react";
 import { Slider } from "@/components/ui/slider";
 import {
@@ -16,21 +10,41 @@ import {
 	AccordionItem,
 } from "@/components/ui/accordion";
 import "@/index.css";
+import {
+	Select,
+	SelectContent,
+	SelectItem,
+	SelectTrigger,
+	SelectValue,
+} from "@/components/ui/select";
 
 export const SearchControls = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
 	const inputRef = useRef<HTMLInputElement | null>(null);
 
 	const activeAccordion = searchParams.get("active-accordion") ?? "";
+
 	const selectedStrength = Number(searchParams.get("strength") ?? "0");
 	const selectedSpeed = Number(searchParams.get("speed") ?? "0");
-	const selectedDurabiltiy = Number(searchParams.get("durability") ?? "0");
+	const selectedDurability = Number(searchParams.get("durability") ?? "0");
 	const selectedIntelligence = Number(searchParams.get("intelligence") ?? "0");
+
+	const selectedTeam = searchParams.get("team") ?? "all";
+	const selectedCategory = searchParams.get("category") ?? "all";
+	const selectedUniverse = searchParams.get("universe") ?? "all";
+	const selectedStatus = searchParams.get("status") ?? "all";
 
 	const setQueryParams = (name: string, value: string) => {
 		setSearchParams((prev) => {
-			prev.set(name, value);
-			return prev;
+			const params = new URLSearchParams(prev);
+
+			if (value === "" || value === "all") {
+				params.delete(name);
+			} else {
+				params.set(name, value);
+			}
+
+			return params;
 		});
 	};
 
@@ -66,7 +80,7 @@ export const SearchControls = () => {
 				<div className="flex gap-2 filters">
 					<Button
 						className="h-12"
-						variant={"outline"}
+						variant="outline"
 						onClick={() =>
 							setQueryParams("name", inputRef.current?.value ?? "")
 						}
@@ -74,17 +88,19 @@ export const SearchControls = () => {
 						<Search />
 						Buscar
 					</Button>
+
 					<Button
 						className="h-12"
-						variant={"outline"}
+						variant="outline"
 						onClick={() => {
-							setSearchParams({});
+							setSearchParams(new URLSearchParams());
 							cleanInputRef();
 						}}
 					>
 						<Trash2 />
 						Limpiar Todo
 					</Button>
+
 					<Button
 						variant={
 							activeAccordion === "advanced-filters" ? "default" : "outline"
@@ -93,10 +109,6 @@ export const SearchControls = () => {
 						onClick={() => {
 							if (activeAccordion === "advanced-filters") {
 								setQueryParams("active-accordion", "");
-								// setSearchParams((prev) => {
-								// prev.delete("active-accordion");
-								// return prev;
-								// });
 								return;
 							}
 
@@ -106,72 +118,117 @@ export const SearchControls = () => {
 						<Filter className="h-4 w-4 mr-2" />
 						Filtros
 					</Button>
-
-					{/* 
-					<Button variant="outline" className="h-12">
-						<SortAsc className="h-4 w-4 mr-2" />
-						Sort by Name
-					</Button> */}
-
-					{/* <Button variant="outline" className="h-12">
-						<Grid className="h-4 w-4" />
-					</Button> */}
-
-					{/* <Button className="h-12">
-						<Plus className="h-4 w-4 mr-2" />
-						Add Character
-					</Button> */}
 				</div>
 			</div>
 
 			{/* Advanced Filters */}
-			<Accordion
-				type="single"
-				collapsible
-				defaultValue="item-1"
-				value={activeAccordion}
-			>
+			<Accordion type="single" collapsible value={activeAccordion}>
 				<AccordionItem value="advanced-filters" className="advanced-filters">
-					{/* <AccordionTrigger>Filtros avanzados</AccordionTrigger> */}
 					<AccordionContent>
 						<div className="bg-white rounded-lg p-6 mb-8 shadow-sm border">
 							<div className="flex justify-between items-center mb-4">
 								<h3 className="text-lg font-semibold">Filtros Avanzados</h3>
 							</div>
+
 							<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-								<div className="space-y-2">
-									<label className="text-sm font-medium">Equipo</label>
-									<div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1">
-										Todos los equipos
-									</div>
+								{/* Teams */}
+								<div className="space-y-2 flex flex-col gap-0.5 justify-center">
+									<label className="text-sm font-medium">Equipos</label>
+
+									<Select
+										value={selectedTeam}
+										onValueChange={(value) => setQueryParams("team", value)}
+									>
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="Todos los equipos" />
+										</SelectTrigger>
+
+										<SelectContent>
+											<SelectItem value="all">Todos los equipos</SelectItem>
+											<SelectItem value="justice-league">
+												Liga de la justicia
+											</SelectItem>
+											<SelectItem value="avengers">Vengadores</SelectItem>
+											<SelectItem value="x-men">X-Men</SelectItem>
+											<SelectItem value="fantastic-four">
+												Cuatro Fantásticos
+											</SelectItem>
+										</SelectContent>
+									</Select>
 								</div>
-								<div className="space-y-2">
-									<label className="text-sm font-medium">Categoría</label>
-									<div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1">
-										Todas las categorías
-									</div>
+
+								{/* Category */}
+								<div className="space-y-2 flex flex-col gap-0.5 justify-center">
+									<label className="text-sm font-medium">Categorías</label>
+
+									<Select
+										value={selectedCategory}
+										onValueChange={(value) => setQueryParams("category", value)}
+									>
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="Todas las categorías" />
+										</SelectTrigger>
+
+										<SelectContent>
+											<SelectItem value="all">Todas las categorías</SelectItem>
+											<SelectItem value="hero">Héroe</SelectItem>
+											<SelectItem value="antihero">Antihéroe</SelectItem>
+											<SelectItem value="villain">Villano</SelectItem>
+											<SelectItem value="civilian">Civil</SelectItem>
+										</SelectContent>
+									</Select>
 								</div>
-								<div className="space-y-2">
-									<label className="text-sm font-medium">Universe</label>
-									<div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1">
-										Todos los universos
-									</div>
+
+								{/* Universe */}
+								<div className="space-y-2 flex flex-col gap-0.5 justify-center">
+									<label className="text-sm font-medium">Universo</label>
+
+									<Select
+										value={selectedUniverse}
+										onValueChange={(value) => setQueryParams("universe", value)}
+									>
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="Todos los universos" />
+										</SelectTrigger>
+
+										<SelectContent>
+											<SelectItem value="all">Todos los universos</SelectItem>
+											<SelectItem value="marvel">Marvel</SelectItem>
+											<SelectItem value="dc">DC</SelectItem>
+										</SelectContent>
+									</Select>
 								</div>
-								<div className="space-y-2">
+
+								{/* Status */}
+								<div className="space-y-2 flex flex-col gap-0.5 justify-center">
 									<label className="text-sm font-medium">Estado</label>
-									<div className="h-10 w-full rounded-md border border-input bg-background px-3 py-2 text-sm mt-1">
-										Todos los estados
-									</div>
+
+									<Select
+										value={selectedStatus}
+										onValueChange={(value) => setQueryParams("status", value)}
+									>
+										<SelectTrigger className="w-full">
+											<SelectValue placeholder="Todos los estados" />
+										</SelectTrigger>
+
+										<SelectContent>
+											<SelectItem value="all">Todos los estados</SelectItem>
+											<SelectItem value="active">Activo</SelectItem>
+											<SelectItem value="deceased">Deceased</SelectItem>
+										</SelectContent>
+									</Select>
 								</div>
 							</div>
+
 							{/* Strength */}
 							<div className="mt-4">
 								<label className="text-sm font-medium">
 									Fuerza mínima: {selectedStrength}/10
 								</label>
+
 								<Slider
 									className="mt-4 cursor-pointer"
-									defaultValue={[selectedStrength]}
+									value={[selectedStrength]}
 									onValueChange={(value) =>
 										setQueryParams("strength", value[0].toString())
 									}
@@ -179,14 +236,16 @@ export const SearchControls = () => {
 									step={1}
 								/>
 							</div>
-							{/* Intelligence*/}
+
+							{/* Intelligence */}
 							<div className="mt-4">
 								<label className="text-sm font-medium">
 									Inteligencia mínima: {selectedIntelligence}/10
 								</label>
+
 								<Slider
 									className="mt-4 cursor-pointer"
-									defaultValue={[selectedIntelligence]}
+									value={[selectedIntelligence]}
 									onValueChange={(value) =>
 										setQueryParams("intelligence", value[0].toString())
 									}
@@ -194,14 +253,16 @@ export const SearchControls = () => {
 									step={1}
 								/>
 							</div>
+
 							{/* Speed */}
 							<div className="mt-4">
 								<label className="text-sm font-medium">
 									Velocidad mínima: {selectedSpeed}/10
 								</label>
+
 								<Slider
 									className="mt-4 cursor-pointer"
-									defaultValue={[selectedSpeed]}
+									value={[selectedSpeed]}
 									onValueChange={(value) =>
 										setQueryParams("speed", value[0].toString())
 									}
@@ -209,14 +270,16 @@ export const SearchControls = () => {
 									step={1}
 								/>
 							</div>
+
 							{/* Durability */}
 							<div className="mt-4">
 								<label className="text-sm font-medium">
-									Durabilidad mínima: {selectedDurabiltiy}/10
+									Durabilidad mínima: {selectedDurability}/10
 								</label>
+
 								<Slider
 									className="mt-4 cursor-pointer"
-									defaultValue={[selectedDurabiltiy]}
+									value={[selectedDurability]}
 									onValueChange={(value) =>
 										setQueryParams("durability", value[0].toString())
 									}
