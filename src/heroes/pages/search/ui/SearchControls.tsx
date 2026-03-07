@@ -145,15 +145,20 @@ export const SearchControls = () => {
 
 										<SelectContent>
 											<SelectItem value="all">Todos los equipos</SelectItem>
-											<SelectItem value="justice league">
+											<SelectItem value="liga de la justicia">
 												Liga de la justicia
 											</SelectItem>
 											<SelectItem value="avengers">Vengadores</SelectItem>
 											<SelectItem value="x-men">X-Men</SelectItem>
-											<SelectItem value="brotherhood of mutans">
+											<SelectItem value="brotherhood of mutants">
 												Hermandad de mutantes
 											</SelectItem>
-											<SelectItem value="suicide squad">Solo</SelectItem>
+											<SelectItem value="suicide squad">
+												Escuadrón Suicida
+											</SelectItem>
+											<SelectItem value="gotham city sirens">
+												Sirenas de Ciudad Gótica
+											</SelectItem>
 											<SelectItem value="daily planet">Daily Planet</SelectItem>
 											<SelectItem value="solo">Solo</SelectItem>
 											<SelectItem value="fantastic four">
