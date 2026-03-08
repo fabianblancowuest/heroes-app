@@ -1,7 +1,17 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Shield, Zap, Brain, Gauge, Users, Star, Award } from "lucide-react";
+import {
+	Shield,
+	Zap,
+	Brain,
+	Gauge,
+	Users,
+	Star,
+	Award,
+	Swords,
+	Crosshair,
+} from "lucide-react";
 import { getHeroAction } from "../../actions/get-hero.action";
 import { Navigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
@@ -31,7 +41,10 @@ export const HeroPage = () => {
 	}
 
 	const totalPower =
-		hero.strength + hero.intelligence + hero.speed + hero.durability;
+		hero.stats.strength +
+		hero.stats.intelligence +
+		hero.stats.speed +
+		hero.stats.durability;
 	const averagePower = Math.round((totalPower / 4) * 10);
 
 	const getStatusColor = (status: string) => {
@@ -68,7 +81,7 @@ export const HeroPage = () => {
 
 	function getTeamMessage(team: string) {
 		team = team.toLowerCase();
-		if (team === "liga de la justicia") {
+		if (team === "liga de la justicia" || "justice league") {
 			return "Los mayores héroes del mundo unidos para proteger el planeta Tierra.";
 		} else if (team === "vengadores" || team === "avengers") {
 			return "Los héroes más poderosos de la Tierra.";
@@ -149,7 +162,7 @@ export const HeroPage = () => {
 							</h1>
 							<p className="text-xl text-blue-200 mb-4">{hero.name}</p>
 							<p className="text-lg text-gray-300 max-w-2xl">
-								{hero.description}
+								{hero.description} {hero.biography.originStory}
 							</p>
 						</div>
 
@@ -185,6 +198,10 @@ export const HeroPage = () => {
 							<Zap className="w-4 h-4" />
 							Poderes
 						</TabsTrigger>
+						<TabsTrigger value="weapons" className="flex items-center gap-2">
+							<Crosshair className="w-4 h-4" />
+							Armas
+						</TabsTrigger>
 						<TabsTrigger value="team" className="flex items-center gap-2">
 							<Users className="w-4 h-4" />
 							Equipo
@@ -196,7 +213,7 @@ export const HeroPage = () => {
 					</TabsList>
 
 					<TabsContent value="stats" className="space-y-6">
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(245px,auto))] justify-between gap-4">
+						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(220px,auto))] justify-between gap-4">
 							{/* Strength */}
 							<Card className="text-center">
 								<CardContent className="pt-6">
@@ -215,7 +232,7 @@ export const HeroPage = () => {
 										activeColor="bg-orange-700"
 									/> */}
 									<CircularProgress
-										value={hero.strength * 10}
+										value={hero.stats.strength * 10}
 										stroke={12}
 										size={100}
 										color="text-red-700"
@@ -243,7 +260,7 @@ export const HeroPage = () => {
 										activeColor="bg-blue-700"
 									/> */}
 									<CircularProgress
-										value={hero.intelligence * 10}
+										value={hero.stats.intelligence * 10}
 										stroke={12}
 										size={100}
 										color="text-blue-700"
@@ -271,7 +288,7 @@ export const HeroPage = () => {
 										activeColor="bg-green-700"
 									/> */}
 									<CircularProgress
-										value={hero.speed * 10}
+										value={hero.stats.speed * 10}
 										stroke={12}
 										size={100}
 										color="text-green-700"
@@ -285,7 +302,7 @@ export const HeroPage = () => {
 							<Card className="text-center">
 								<CardContent className="pt-6">
 									<div className="flex justify-center mb-4">
-										<div className="bg-green-100 p-3 rounded-full">
+										<div className="bg-purple-100 p-3 rounded-full">
 											<Shield className="w-8 h-8 text-purple-700" />
 										</div>
 									</div>
@@ -299,11 +316,38 @@ export const HeroPage = () => {
 										activeColor="bg-purple-700"
 									/> */}
 									<CircularProgress
-										value={hero.speed * 10}
+										value={hero.stats.speed * 10}
 										stroke={12}
 										size={100}
 										color="text-purple-700"
 										textColor="text-purple-700"
+										textSize="text-xl"
+									/>
+								</CardContent>
+							</Card>
+							{/*Combate */}
+							<Card className="text-center">
+								<CardContent className="pt-6">
+									<div className="flex justify-center mb-4">
+										<div className="bg-red-100 p-3 rounded-full">
+											<Swords className="w-8 h-8 text-red-700" />
+										</div>
+									</div>
+									<h3 className="font-semibold text-m mb-2">Combate</h3>
+									{/* <div className="text-2xl font-bold text-purple-700 mb-2">
+										{hero.durability}
+									</div> */}
+									{/* <Progress
+										value={hero.durability * 10}
+										className="h-2 mobile-progress"
+										activeColor="bg-purple-700"
+									/> */}
+									<CircularProgress
+										value={hero.stats.combat * 10}
+										stroke={12}
+										size={100}
+										color="text-red-700"
+										textColor="text-red-700"
 										textSize="text-xl"
 									/>
 								</CardContent>
@@ -360,13 +404,13 @@ export const HeroPage = () => {
 												activeColor="bg-orange-700"
 											/> */}
 											<LinearProgressSVG
-												value={hero.strength * 10}
+												value={hero.stats.strength * 10}
 												barClass="text-orange-700"
 												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
-											{hero.strength}/10
+											{hero.stats.strength}/10
 										</div>
 									</div>
 									<div className="flex items-center gap-4">
@@ -380,13 +424,13 @@ export const HeroPage = () => {
 												activeColor="bg-blue-700"
 											/> */}
 											<LinearProgressSVG
-												value={hero.intelligence * 10}
+												value={hero.stats.intelligence * 10}
 												barClass="text-blue-700"
 												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
-											{hero.intelligence}/10
+											{hero.stats.intelligence}/10
 										</div>
 									</div>
 									<div className="flex items-center gap-4">
@@ -400,13 +444,13 @@ export const HeroPage = () => {
 												activeColor="bg-green-700"
 											/> */}
 											<LinearProgressSVG
-												value={hero.speed * 10}
+												value={hero.stats.speed * 10}
 												barClass="text-green-700"
 												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
-											{hero.speed}/10
+											{hero.stats.speed}/10
 										</div>
 									</div>
 									<div className="flex items-center gap-4">
@@ -420,13 +464,33 @@ export const HeroPage = () => {
 												activeColor="bg-purple-700"
 											/> */}
 											<LinearProgressSVG
-												value={hero.durability * 10}
+												value={hero.stats.durability * 10}
 												barClass="text-purple-700"
 												delay={0}
 											/>
 										</div>
 										<div className="w-12 text-right font-medium">
-											{hero.durability}/10
+											{hero.stats.durability}/10
+										</div>
+									</div>
+									<div className="flex items-center gap-4">
+										<div className="w-24 text-sm font-medium no-mobile">
+											Combate
+										</div>
+										<div className="flex-1">
+											{/* <AnimatedProgress
+												value={hero.strength * 10}
+												className="h-3"
+												activeColor="bg-orange-700"
+											/> */}
+											<LinearProgressSVG
+												value={hero.stats.combat * 10}
+												barClass="text-red-700"
+												delay={0}
+											/>
+										</div>
+										<div className="w-12 text-right font-medium">
+											{hero.stats.combat}/10
 										</div>
 									</div>
 								</div>
@@ -434,6 +498,37 @@ export const HeroPage = () => {
 						</Card>
 					</TabsContent>
 
+					{/* Armas */}
+					<TabsContent value="weapons">
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Zap className="w-6 h-6 text-yellow-500" />
+									Superpoderes
+								</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									{hero.weapons.map((power, index) => (
+										<div
+											key={index}
+											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
+										>
+											<div className="flex items-center gap-3">
+												<div className="bg-blue-500 p-2 rounded-full">
+													<Crosshair className="w-4 h-4 text-white" />
+												</div>
+												<span className="font-medium text-blue-900">
+													{power}
+												</span>
+											</div>
+										</div>
+									))}
+								</div>
+							</CardContent>
+						</Card>
+					</TabsContent>
+					{/* Poderes */}
 					<TabsContent value="powers">
 						<Card>
 							<CardHeader>
@@ -478,9 +573,13 @@ export const HeroPage = () => {
 										<Users className="w-12 h-12 text-green-700" />
 									</div>
 									<h3 className="text-2xl font-bold text-green-700 mb-2">
-										{hero.team}
+										{hero.connections.groupAffiliation.map((team) => (
+											<div key={team}>{team}</div>
+										))}
 									</h3>
-									<p className="text-gray-700">{getTeamMessage(hero.team)}</p>
+									<p className="text-gray-700">
+										{getTeamMessage(hero.connections.groupAffiliation[0])}
+									</p>
 									{/* <p className="text-gray-700">
 										Miembro activo del equipo de superhéroes más poderoso
 									</p> */}
@@ -505,20 +604,54 @@ export const HeroPage = () => {
 										<span className="font-semibold">{hero.alias}</span>
 									</div>
 									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Categoría:</span>
-										<Badge
-											className={`${getCategoryColor(hero.category)} text-white`}
-										>
-											{hero.category}
-										</Badge>
+										<span className="text-gray-700">Nombre Completo:</span>
+										<span className="font-semibold">
+											{hero.biography.fullName}
+										</span>
 									</div>
-									<div className="flex justify-between items-center py-2">
-										<span className="text-gray-700">Estado:</span>
-										<Badge
-											className={`${getStatusColor(hero.status)} text-white`}
-										>
-											{hero.status}
-										</Badge>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Lugar de Nacimiento:</span>
+										<span className="font-semibold">
+											{hero.biography.placeOfBirth}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Alineamiento:</span>
+										<span className="font-semibold">
+											{hero.biography.alignment === "good" ? "Bueno" : "Malo"}
+										</span>
+									</div>
+									{/* Sexo */}
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Género:</span>
+										<span className="font-semibold">
+											{hero.appearance.gender === "Female"
+												? "Femenino"
+												: hero.appearance.gender === "Male"
+													? "Masculino"
+													: hero.appearance.gender === "None"
+														? "Ninguno"
+														: "Otro"}
+										</span>
+									</div>
+
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Ocupación:</span>
+										<span className="font-semibold">
+											{hero.biography.occupation}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Altura:</span>
+										<span className="font-semibold">
+											{hero.appearance.height}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Peso:</span>
+										<span className="font-semibold">
+											{hero.appearance.weight}
+										</span>
 									</div>
 								</CardContent>
 							</Card>
@@ -529,6 +662,30 @@ export const HeroPage = () => {
 								</CardHeader>
 								<CardContent className="space-y-4">
 									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Categoría:</span>
+										<Badge
+											className={`${getCategoryColor(hero.category)} text-sm text-white`}
+										>
+											{hero.category === "Hero"
+												? "Héroe"
+												: hero.category === "Antihero"
+													? "Antihéroe"
+													: hero.category === "Villain"
+														? "Villano"
+														: hero.category === "Civilian"
+															? "Civl"
+															: hero.category}
+										</Badge>
+									</div>
+									<div className="flex justify-between items-center py-2">
+										<span className="text-gray-700">Estado:</span>
+										<Badge
+											className={`${getStatusColor(hero.status)} text-sm text-white`}
+										>
+											{hero.status === "Active" ? "Activo" : "Fallecido"}
+										</Badge>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
 										<span className="text-gray-700">Universo:</span>
 										<span className="font-semibold">{hero.universe}</span>
 									</div>
@@ -536,6 +693,33 @@ export const HeroPage = () => {
 										<span className="text-gray-700">Primera Aparición:</span>
 										<span className="font-semibold">
 											{hero.firstAppearance}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">
+											Primera Publicación en Comic:
+										</span>
+										<span className="font-semibold">
+											{hero.firstAppearanceComic}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Creadores:</span>
+										<span className="font-semibold">
+											{hero.biography.creators.join(" / ")}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Base de Operaciones:</span>
+										<span className="font-semibold">
+											{hero.biography.baseOfOperations}
+										</span>
+									</div>
+									{/* Raza */}
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Raza:</span>
+										<span className="font-semibold">
+											{hero.appearance.race}
 										</span>
 									</div>
 									<div className="flex justify-between items-center py-2">

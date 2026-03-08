@@ -17,6 +17,7 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from "@/components/ui/select";
+import { teams } from "../data/teams.data";
 
 export const SearchControls = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -135,8 +136,10 @@ export const SearchControls = () => {
 								<div className="space-y-2 flex flex-col gap-0.5 justify-center">
 									<label className="text-sm font-medium">Equipos</label>
 
+									{/* Buscar por equipos */}
 									<Select
 										value={selectedTeam}
+										defaultValue="Todos los equipos"
 										onValueChange={(value) => setQueryParams("team", value)}
 									>
 										<SelectTrigger className="w-full">
@@ -144,26 +147,9 @@ export const SearchControls = () => {
 										</SelectTrigger>
 
 										<SelectContent>
-											<SelectItem value="all">Todos los equipos</SelectItem>
-											<SelectItem value="liga de la justicia">
-												Liga de la justicia
-											</SelectItem>
-											<SelectItem value="avengers">Vengadores</SelectItem>
-											<SelectItem value="x-men">X-Men</SelectItem>
-											<SelectItem value="brotherhood of mutants">
-												Hermandad de mutantes
-											</SelectItem>
-											<SelectItem value="suicide squad">
-												Escuadrón Suicida
-											</SelectItem>
-											<SelectItem value="gotham city sirens">
-												Sirenas de Ciudad Gótica
-											</SelectItem>
-											<SelectItem value="daily planet">Daily Planet</SelectItem>
-											<SelectItem value="solo">Solo</SelectItem>
-											<SelectItem value="fantastic four">
-												Cuatro Fantásticos
-											</SelectItem>
+											{teams.map((team) => (
+												<SelectItem value={team}>{team}</SelectItem>
+											))}
 										</SelectContent>
 									</Select>
 								</div>

@@ -1,59 +1,73 @@
 import { heroApi } from "../api/hero.api";
-import type { Hero } from "../types/hero.interface";
+import type { Hero } from "../types/hero.interface"; // La interfaz anidada que acabamos de definir
 
 const VITE_API_URL = import.meta.env.VITE_API_URL;
 
-interface Options {
+// Definimos las opciones de búsqueda que vienen del formulario (planas)
+interface SearchOptions {
 	name?: string;
-	team?: string;
 	category?: string;
 	universe?: string;
 	status?: string;
 	strength?: string;
-	durability?: string;
 	intelligence?: string;
 	speed?: string;
+	durability?: string;
+	team?: string;
 }
 
-export const searchHeroesAction = async (options: Options) => {
+export const searchHeroesAction = async (
+	options: SearchOptions,
+): Promise<Hero[]> => {
 	const {
 		name,
-		team,
 		category,
 		universe,
 		status,
 		strength,
-		durability,
 		intelligence,
 		speed,
+		durability,
+		team,
 	} = options;
 
-	// limpiar parámetros vacíos o undefined
+	// 1. Limpiar parámetros vacíos o undefined
 	const params = Object.fromEntries(
 		Object.entries({
 			name,
-			team,
 			category,
 			universe,
 			status,
 			strength,
-			durability,
 			intelligence,
 			speed,
+			durability,
+			team,
 		}).filter(([_, value]) => value !== undefined && value !== ""),
 	);
 
-	// si no hay filtros, no llamar al backend
+	// 2. Si no hay filtros, podrías retornar un array vacío o todos los héroes
+	// según prefieras. Aquí mantenemos tu lógica de retornar vacío si no hay parámetros.
 	if (Object.keys(params).length === 0) {
 		return [];
 	}
 
-	const { data } = await heroApi.get<Hero[]>("/search", {
-		params,
-	});
+	try {
+		// 3. Petición al Backend
+		// Enviamos los params. El Backend se encargará de buscar 'strength' dentro de 'stats.strength'
+		const { data } = await heroApi.get<Hero[]>("/search", {
+			params,
+		});
 
-	return data.map((hero) => ({
-		...hero,
-		image: `${VITE_API_URL}/images/${hero.image}`,
-	}));
+		// 4. Transformación de la URL de la imagen
+		// Mantenemos la estructura Hero intacta, solo actualizamos el string de la imagen
+		return data.map((hero) => ({
+			...hero,
+			image: `${VITE_API_URL}/images/${hero.image}`,
+		}));
+	} catch (error) {
+		console.error("Error buscando héroes:", error);
+		// Podrías lanzar el error o retornar un array vacío según tu manejo de estados
+		return [];
+	}
 };

@@ -62,7 +62,7 @@ export const HeroStats = () => {
 			>
 				<div className="text-lg font-bold">{summary?.strongestHero.alias}</div>
 				<p className="text-xs text-muted-foreground">
-					Fuerza: {summary?.strongestHero.strength}/10
+					Fuerza: {summary?.strongestHero.stats.strength}/10
 				</p>
 			</HeroStatCard>
 			<HeroStatCard
@@ -71,7 +71,7 @@ export const HeroStats = () => {
 			>
 				<div className="text-lg font-bold ">{summary?.smartestHero.alias}</div>
 				<p className="text-xs text-muted-foreground">
-					Inteligencia: {summary?.smartestHero.intelligence}/10
+					Inteligencia: {summary?.smartestHero.stats.intelligence}/10
 				</p>
 			</HeroStatCard>
 		</div>
