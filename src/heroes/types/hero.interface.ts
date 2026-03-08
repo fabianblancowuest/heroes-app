@@ -38,7 +38,7 @@ export interface Hero {
 	biography: Biography;
 	appearance: Appearance;
 	stats: Stats;
-	connections: Connections;
+	connections?: Connections;
 	powers: string[];
 	weapons: string[];
 	weaknesses: string[];

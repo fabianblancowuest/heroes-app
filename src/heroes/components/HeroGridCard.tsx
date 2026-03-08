@@ -8,18 +8,6 @@ import type { Hero } from "../types/hero.interface";
 import { useNavigate } from "react-router";
 import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
 
-// interface Props {
-// 	heroName: string;
-// 	realName: string;
-// 	firstAppeared: number;
-// 	powers: string[];
-// 	strength: number;
-// 	intelligence: number;
-// 	speed: number;
-// 	durability: number;
-// 	comicCompany: string;
-// }
-
 interface Props {
 	hero: Hero;
 }
@@ -31,6 +19,8 @@ export const HeroGridCard = ({ hero }: Props) => {
 	const handleClick = () => {
 		navigate(`/heroes/${hero.slug}`);
 	};
+
+	const teams = hero.connections?.groupAffiliation ?? [];
 
 	return (
 		<Card className="cursor-pointer group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
@@ -94,12 +84,16 @@ export const HeroGridCard = ({ hero }: Props) => {
 						{hero.category}
 					</Badge>
 				</div>
-				<div className="flex gap-2">
-					{/* {hero.connections.groupAffiliation.map((team) => (
-						<Badge variant="outline" className="w-fit text-xs">
+				<div className="flex flex-wrap gap-2">
+					{teams.slice(0, 2).map((team) => (
+						<Badge key={team} variant="outline" className="w-fit text-xs">
 							{team}
 						</Badge>
-					))} */}
+					))}
+
+					{teams.length > 2 && (
+						<Badge variant="outline">+{teams.length - 2} más</Badge>
+					)}
 				</div>
 			</CardHeader>
 
@@ -114,7 +108,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Fuerza</span>
 						</div>
 						<Progress
-							value={hero.stats?.strength * 10}
+							value={hero.stats.strength * 10}
 							className="h-2"
 							activeColor="bg-orange-500"
 						/>
@@ -125,7 +119,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Inteligencia</span>
 						</div>
 						<Progress
-							value={hero.stats?.intelligence * 10}
+							value={hero.stats.intelligence * 10}
 							className="h-2"
 							activeColor="bg-blue-500"
 						/>
@@ -136,7 +130,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Velocidad</span>
 						</div>
 						<Progress
-							value={hero.stats?.speed * 10}
+							value={hero.stats.speed * 10}
 							className="h-2"
 							activeColor="bg-green-500"
 						/>
@@ -147,7 +141,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Durabilidad</span>
 						</div>
 						<Progress
-							value={hero.stats?.durability * 10}
+							value={hero.stats.durability * 10}
 							className="h-2"
 							activeColor="bg-purple-500"
 						/>

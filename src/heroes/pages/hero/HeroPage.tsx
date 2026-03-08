@@ -115,6 +115,8 @@ export const HeroPage = () => {
 			return "La voz de Metropolis, donde la verdad siempre encuentra su camino.";
 		} else if (team === "parker family") {
 			return "Miembro transcendente en la vida de Spiderman.";
+		} else {
+			return "nada";
 		}
 	}
 
@@ -503,8 +505,8 @@ export const HeroPage = () => {
 						<Card>
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
-									<Zap className="w-6 h-6 text-yellow-500" />
-									Superpoderes
+									<Crosshair className="w-6 h-6 text-yellow-500" />
+									Armas
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
@@ -567,24 +569,30 @@ export const HeroPage = () => {
 									Afiliación de Equipo
 								</CardTitle>
 							</CardHeader>
-							<CardContent>
-								<div className="text-center py-8">
-									<div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-										<Users className="w-12 h-12 text-green-700" />
-									</div>
-									<h3 className="text-2xl font-bold text-green-700 mb-2">
-										{hero.connections.groupAffiliation.map((team) => (
-											<div key={team}>{team}</div>
-										))}
-									</h3>
-									<p className="text-gray-700">
-										{getTeamMessage(hero.connections.groupAffiliation[0])}
-									</p>
-									{/* <p className="text-gray-700">
+							<div className="flex justify-evenly">
+								{hero.connections.groupAffiliation.map((team) => (
+									<CardContent>
+										<div className="text-center py-8">
+											<div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+												<Users className="w-12 h-12 text-green-700" />
+											</div>
+											<h3 className="text-2xl font-bold text-green-700 mb-2">
+												<div key={team}>{team}</div>
+											</h3>
+											<p className="text-gray-700">
+												{hero.connections.groupAffiliation.find((item) => {
+													if (item === team) {
+														getTeamMessage(team);
+													}
+												})}
+											</p>
+											{/* <p className="text-gray-700">
 										Miembro activo del equipo de superhéroes más poderoso
-									</p> */}
-								</div>
-							</CardContent>
+										</p> */}
+										</div>
+									</CardContent>
+								))}
+							</div>
 						</Card>
 					</TabsContent>
 
