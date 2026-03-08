@@ -119,6 +119,7 @@ export const HeroPage = () => {
 			return "nada";
 		}
 	}
+	const teams = hero.connections?.groupAffiliation ?? [];
 
 	return (
 		<div className="min-h-screen bg-gray-50">
@@ -570,7 +571,7 @@ export const HeroPage = () => {
 								</CardTitle>
 							</CardHeader>
 							<div className="flex justify-evenly">
-								{hero.connections.groupAffiliation.map((team) => (
+								{teams.map((team) => (
 									<CardContent>
 										<div className="text-center py-8">
 											<div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
@@ -580,7 +581,7 @@ export const HeroPage = () => {
 												<div key={team}>{team}</div>
 											</h3>
 											<p className="text-gray-700">
-												{hero.connections.groupAffiliation.find((item) => {
+												{teams.find((item) => {
 													if (item === team) {
 														getTeamMessage(team);
 													}
