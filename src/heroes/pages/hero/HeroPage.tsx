@@ -18,6 +18,7 @@ import { useQuery } from "@tanstack/react-query";
 import "@/index.css";
 import { CircularProgress } from "@/components/ui/circular-progress";
 import { LinearProgressSVG } from "@/components/ui/linear-progress";
+import { dataTeams } from "./utils/getTeamMessage";
 
 export const HeroPage = () => {
 	// Animación barras circulares de habilidades
@@ -409,22 +410,15 @@ export const HeroPage = () => {
 								{teams.map((team) => (
 									<CardContent>
 										<div className="text-center py-8">
-											<div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-												<Users className="w-12 h-12 text-green-700" />
+											<div className="bg-green-100 p-6 rounded-full w-21 h-21 mx-auto mb-2 flex items-center justify-center">
+												<Users className="w-10 h-10 text-green-700" />
 											</div>
-											<h3 className="text-2xl font-bold text-green-700 mb-2">
+											<h3 className="text-xl font-bold text-green-700 mb-2">
 												<div key={team}>{team}</div>
 											</h3>
-											{/* <p className="text-gray-700">
-												{teams.find((item) => {
-													if (item === team) {
-														getTeamMessage(team);
-													}
-												})}
-											</p> */}
-											{/* <p className="text-gray-700">
-										Miembro activo del equipo de superhéroes más poderoso
-										</p> */}
+											<p className="text-gray-700 max-w-60 mx-auto">
+												{dataTeams[team]}
+											</p>
 										</div>
 									</CardContent>
 								))}

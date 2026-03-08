@@ -63,7 +63,6 @@ export const HeroStats = () => {
 				{summary?.strongestHeroes.slice(0, 5).map((hero) => (
 					<p className="text-md font-semibold">{hero.alias}</p>
 				))}
-				{/* <div className="text-lg font-bold"></div> */}
 				<p className="text-xs text-muted-foreground">Fuerza: 10/10</p>
 			</HeroStatCard>
 			<HeroStatCard
