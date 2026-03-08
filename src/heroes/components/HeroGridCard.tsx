@@ -8,17 +8,17 @@ import type { Hero } from "../types/hero.interface";
 import { useNavigate } from "react-router";
 import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
 
-interface Props {
-	heroName: string;
-	realName: string;
-	firstAppeared: number;
-	powers: string[];
-	strength: number;
-	intelligence: number;
-	speed: number;
-	durability: number;
-	comicCompany: string;
-}
+// interface Props {
+// 	heroName: string;
+// 	realName: string;
+// 	firstAppeared: number;
+// 	powers: string[];
+// 	strength: number;
+// 	intelligence: number;
+// 	speed: number;
+// 	durability: number;
+// 	comicCompany: string;
+// }
 
 interface Props {
 	hero: Hero;
