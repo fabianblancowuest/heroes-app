@@ -57,27 +57,24 @@ export const HeroStats = () => {
 				</p>
 			</HeroStatCard>
 			<HeroStatCard
-				title={"Más fuerte"}
+				title={"Los más fuertes"}
 				icon={<Zap className="h-4 w-4 text-muted-foreground" />}
 			>
-				<div className="text-lg font-bold">
-					{summary?.strongestHeroes.map((hero) => hero.alias)}
-				</div>
-				{/* <p className="text-xs text-muted-foreground">
-					{summary?.strongestHeroes.map(hero => hero.stats.strength)}/10
-					Fuerza: {summary?.strongestHeroes.stats.strength}/10
-				</p> */}
+				{summary?.strongestHeroes.slice(0, 5).map((hero) => (
+					<p className="text-md font-semibold">{hero.alias}</p>
+				))}
+				{/* <div className="text-lg font-bold"></div> */}
+				<p className="text-xs text-muted-foreground">Fuerza: 10/10</p>
 			</HeroStatCard>
 			<HeroStatCard
-				title={"Más inteligente"}
+				title={"Los más inteligentes"}
 				icon={<Lightbulb className="h-4 w-4 text-muted-foreground" />}
 			>
-				<div className="text-lg font-bold ">
-					{summary?.smartestHeroes.map((hero) => hero.alias)}
-				</div>
-				{/* <p className="text-xs text-muted-foreground">
-					Inteligencia: {summary?.smartestHero.stats.intelligence}/10
-				</p> */}
+				{summary?.smartestHeroes.slice(0, 5).map((hero) => (
+					<p className="text-md font-semibold">{hero.alias}</p>
+				))}
+				<div className="text-lg font-bold "></div>
+				<p className="text-xs text-muted-foreground">Inteligencia: 10/10</p>
 			</HeroStatCard>
 		</div>
 	);
