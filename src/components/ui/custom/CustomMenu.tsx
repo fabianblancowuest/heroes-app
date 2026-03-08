@@ -24,9 +24,14 @@ export const CustomMenu = () => {
 				<NavigationMenuItem>
 					<NavigationMenuLink
 						asChild
-						className={cn(isActive("/") && "bg-slate-200 rounded-md", "p-2")}
+						className={cn(
+							isActive("/") && "text-blue-700 cursor-default",
+							"p-2 px-4",
+						)}
 					>
-						<Link to="/">Inicio</Link>
+						<Link className="button" to="/">
+							Inicio
+						</Link>
 					</NavigationMenuLink>
 				</NavigationMenuItem>
 
@@ -35,11 +40,15 @@ export const CustomMenu = () => {
 					<NavigationMenuLink
 						asChild
 						className={cn(
-							isActive("/search") && "bg-slate-200 rounded-md",
-							"p-2",
+							isActive("/search") && "text-blue-700 cursor-default",
+							"p-2 px-4",
 						)}
 					>
-						<Link to="/search">Buscar Superheroes</Link>
+						{/* <div className="button text-center"> */}
+						<Link className="button" to="/search">
+							Buscar Superheroes
+						</Link>
+						{/* </div> */}
 					</NavigationMenuLink>
 				</NavigationMenuItem>
 			</NavigationMenuList>

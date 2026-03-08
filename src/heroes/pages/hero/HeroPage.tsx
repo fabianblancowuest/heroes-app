@@ -79,46 +79,6 @@ export const HeroPage = () => {
 		}
 	};
 
-	function getTeamMessage(team: string) {
-		team = team.toLowerCase();
-		if (team === "liga de la justicia" || "justice league") {
-			return "Los mayores héroes del mundo unidos para proteger el planeta Tierra.";
-		} else if (team === "vengadores" || team === "avengers") {
-			return "Los héroes más poderosos de la Tierra.";
-		} else if (team === "x-men") {
-			return "Mutantes luchando por un mundo que los teme y los odia.";
-		} else if (team === "sociedad de justicia de américa") {
-			return "Donde comenzó el legado de la justicia.";
-		} else if (team === "linternas verdes") {
-			return "Portadores de la voluntad que protege el universo.";
-		} else if (team === "cuatro fantásticos" || team === "fantastic four") {
-			return "Exploradores de lo imposible.";
-		} else if (team === "solo" || team === "loner") {
-			return "No necesita un equipo para cambiar el destino.";
-		} else if (team === "suicide squad") {
-			return "Los peores criminales del mundo… haciendo el trabajo sucio.";
-		} else if (team === "gotham city sirens") {
-			return "Las reinas del caos que dominan las sombras de Gotham.";
-		} else if (team === "midnight sons") {
-			return "Guerreros de la oscuridad enfrentando horrores del inframundo.";
-		} else if (team === "brotherhood of mutants") {
-			return "Donde los X-Men buscan paz, ellos buscan supremacía.";
-		} else if (team === "guardians of the galaxy") {
-			return "Forajidos improbables salvando el universo.";
-		} else if (team === "teen titans") {
-			return "La nueva generación de héroes";
-		} else if (team == "sinister six") {
-			return "Seis villanos unidos para destruir a Spider-Man.";
-		} else if (team === "cosmic entity") {
-			return "Seres cuya existencia trasciende planetas, galaxias y el tiempo mismo.";
-		} else if (team == "daily planet") {
-			return "La voz de Metropolis, donde la verdad siempre encuentra su camino.";
-		} else if (team === "parker family") {
-			return "Miembro transcendente en la vida de Spiderman.";
-		} else {
-			return "nada";
-		}
-	}
 	const teams = hero.connections?.groupAffiliation ?? [];
 
 	return (
@@ -164,8 +124,11 @@ export const HeroPage = () => {
 								{hero.alias}
 							</h1>
 							<p className="text-xl text-blue-200 mb-4">{hero.name}</p>
-							<p className="text-lg text-gray-300 max-w-2xl">
-								{hero.description} {hero.biography.originStory}
+							<p className="text-lg text-gray-300 max-w-2xl text-left text-shadow">
+								<span className="font-bold">{hero.description}</span>
+							</p>
+							<p className="text-lg text-gray-300 max-w-2xl text-left text-shadow">
+								<span> {hero.biography.originStory}</span>
 							</p>
 						</div>
 
@@ -214,6 +177,260 @@ export const HeroPage = () => {
 							Estadísticas
 						</TabsTrigger>
 					</TabsList>
+
+					<TabsContent value="info">
+						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+							<Card>
+								<CardHeader>
+									<CardTitle>Detalles Personales</CardTitle>
+								</CardHeader>
+								<CardContent className="space-y-4 span-dividido">
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Nombre Real:</span>
+										<span className="font-semibold text-right">
+											{hero.name}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Alias:</span>
+										<span className="font-semibold text-right">
+											{hero.alias}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Nombre Completo:</span>
+										<span className="font-semibold text-right">
+											{hero.biography.fullName}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Lugar de Nacimiento:</span>
+										<span className="font-semibold text-right">
+											{hero.biography.placeOfBirth}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Alineamiento:</span>
+										<span className="font-semibold text-right">
+											{hero.biography.alignment === "good" ? "Bueno" : "Malo"}
+										</span>
+									</div>
+									{/* Sexo */}
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Género:</span>
+										<span className="font-semibold text-right">
+											{hero.appearance.gender === "Female"
+												? "Femenino"
+												: hero.appearance.gender === "Male"
+													? "Masculino"
+													: hero.appearance.gender === "None"
+														? "Ninguno"
+														: "Otro"}
+										</span>
+									</div>
+
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700 ">Ocupación:</span>
+										<span className="font-semibold text-right">
+											{hero.biography.occupation}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Altura:</span>
+										<span className="font-semibold text-right">
+											{hero.appearance.height}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Peso:</span>
+										<span className="font-semibold text-right">
+											{hero.appearance.weight}
+										</span>
+									</div>
+								</CardContent>
+							</Card>
+
+							<Card>
+								<CardHeader>
+									<CardTitle>Información del Universo</CardTitle>
+								</CardHeader>
+								<CardContent className="space-y-4 span-dividido">
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Categoría:</span>
+										<Badge
+											className={`${getCategoryColor(hero.category)} text-sm text-white max-w-15`}
+										>
+											{hero.category === "Hero"
+												? "Héroe"
+												: hero.category === "Antihero"
+													? "Antihéroe"
+													: hero.category === "Villain"
+														? "Villano"
+														: hero.category === "Civilian"
+															? "Civl"
+															: hero.category}
+										</Badge>
+									</div>
+									<div className="flex justify-between items-center py-2">
+										<span className="text-gray-700">Estado:</span>
+										<Badge
+											className={`${getStatusColor(hero.status)} text-sm text-white max-w-15`}
+										>
+											{hero.status === "Active" ? "Activo" : "Fallecido"}
+										</Badge>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Universo:</span>
+										<span className="font-semibold text-right">
+											{hero.universe}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Primera Aparición:</span>
+										<span className="font-semibold text-right">
+											{hero.firstAppearance}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">
+											Primera Publicación en Comic:
+										</span>
+										<span className="font-semibold text-right">
+											{hero.firstAppearanceComic}
+										</span>
+									</div>
+									<div className="flex items-start py-2 border-b">
+										<span className="text-gray-700 w-1/2">Creadores:</span>
+
+										<div className="flex flex-col w-1/2 text-right">
+											{hero.biography.creators.map((creator) => (
+												<span key={creator} className="font-semibold">
+													{creator}
+												</span>
+											))}
+										</div>
+									</div>
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Base de Operaciones:</span>
+										<span className="font-semibold text-right">
+											{hero.biography.baseOfOperations}
+										</span>
+									</div>
+									{/* Raza */}
+									<div className="flex justify-between items-center py-2 border-b">
+										<span className="text-gray-700">Raza:</span>
+										<span className="font-semibold text-right">
+											{hero.appearance.race}
+										</span>
+									</div>
+									<div className="flex justify-between items-center py-2">
+										<span className="text-gray-700">Años Activo:</span>
+										<span className="font-semibold text-right">
+											{new Date().getFullYear() -
+												Number.parseInt(hero.firstAppearance)}{" "}
+											años
+										</span>
+									</div>
+								</CardContent>
+							</Card>
+						</div>
+					</TabsContent>
+
+					{/* Armas */}
+					<TabsContent value="weapons">
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Crosshair className="w-6 h-6 text-yellow-500" />
+									Armas
+								</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									{hero.weapons.map((power, index) => (
+										<div
+											key={index}
+											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
+										>
+											<div className="flex items-center gap-3">
+												<div className="bg-blue-500 p-2 rounded-full">
+													<Crosshair className="w-4 h-4 text-white" />
+												</div>
+												<span className="font-medium text-blue-900">
+													{power}
+												</span>
+											</div>
+										</div>
+									))}
+								</div>
+							</CardContent>
+						</Card>
+					</TabsContent>
+					{/* Poderes */}
+					<TabsContent value="powers">
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Zap className="w-6 h-6 text-yellow-500" />
+									Superpoderes
+								</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									{hero.powers.map((power, index) => (
+										<div
+											key={index}
+											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
+										>
+											<div className="flex items-center gap-3">
+												<div className="bg-blue-500 p-2 rounded-full">
+													<Zap className="w-4 h-4 text-white" />
+												</div>
+												<span className="font-medium text-blue-900">
+													{power}
+												</span>
+											</div>
+										</div>
+									))}
+								</div>
+							</CardContent>
+						</Card>
+					</TabsContent>
+
+					<TabsContent value="team">
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<Users className="w-6 h-6 text-green-500" />
+									Afiliación de Equipo
+								</CardTitle>
+							</CardHeader>
+							<div className="flex justify-evenly flex-wrap">
+								{teams.map((team) => (
+									<CardContent>
+										<div className="text-center py-8">
+											<div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
+												<Users className="w-12 h-12 text-green-700" />
+											</div>
+											<h3 className="text-2xl font-bold text-green-700 mb-2">
+												<div key={team}>{team}</div>
+											</h3>
+											{/* <p className="text-gray-700">
+												{teams.find((item) => {
+													if (item === team) {
+														getTeamMessage(team);
+													}
+												})}
+											</p> */}
+											{/* <p className="text-gray-700">
+										Miembro activo del equipo de superhéroes más poderoso
+										</p> */}
+										</div>
+									</CardContent>
+								))}
+							</div>
+						</Card>
+					</TabsContent>
 
 					<TabsContent value="stats" className="space-y-6">
 						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[repeat(auto-fit,minmax(220px,auto))] justify-between gap-4">
@@ -499,249 +716,6 @@ export const HeroPage = () => {
 								</div>
 							</CardContent>
 						</Card>
-					</TabsContent>
-
-					{/* Armas */}
-					<TabsContent value="weapons">
-						<Card>
-							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
-									<Crosshair className="w-6 h-6 text-yellow-500" />
-									Armas
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-									{hero.weapons.map((power, index) => (
-										<div
-											key={index}
-											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
-										>
-											<div className="flex items-center gap-3">
-												<div className="bg-blue-500 p-2 rounded-full">
-													<Crosshair className="w-4 h-4 text-white" />
-												</div>
-												<span className="font-medium text-blue-900">
-													{power}
-												</span>
-											</div>
-										</div>
-									))}
-								</div>
-							</CardContent>
-						</Card>
-					</TabsContent>
-					{/* Poderes */}
-					<TabsContent value="powers">
-						<Card>
-							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
-									<Zap className="w-6 h-6 text-yellow-500" />
-									Superpoderes
-								</CardTitle>
-							</CardHeader>
-							<CardContent>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-									{hero.powers.map((power, index) => (
-										<div
-											key={index}
-											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
-										>
-											<div className="flex items-center gap-3">
-												<div className="bg-blue-500 p-2 rounded-full">
-													<Zap className="w-4 h-4 text-white" />
-												</div>
-												<span className="font-medium text-blue-900">
-													{power}
-												</span>
-											</div>
-										</div>
-									))}
-								</div>
-							</CardContent>
-						</Card>
-					</TabsContent>
-
-					<TabsContent value="team">
-						<Card>
-							<CardHeader>
-								<CardTitle className="flex items-center gap-2">
-									<Users className="w-6 h-6 text-green-500" />
-									Afiliación de Equipo
-								</CardTitle>
-							</CardHeader>
-							<div className="flex justify-evenly">
-								{teams.map((team) => (
-									<CardContent>
-										<div className="text-center py-8">
-											<div className="bg-green-100 p-6 rounded-full w-24 h-24 mx-auto mb-4 flex items-center justify-center">
-												<Users className="w-12 h-12 text-green-700" />
-											</div>
-											<h3 className="text-2xl font-bold text-green-700 mb-2">
-												<div key={team}>{team}</div>
-											</h3>
-											<p className="text-gray-700">
-												{teams.find((item) => {
-													if (item === team) {
-														getTeamMessage(team);
-													}
-												})}
-											</p>
-											{/* <p className="text-gray-700">
-										Miembro activo del equipo de superhéroes más poderoso
-										</p> */}
-										</div>
-									</CardContent>
-								))}
-							</div>
-						</Card>
-					</TabsContent>
-
-					<TabsContent value="info">
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-							<Card>
-								<CardHeader>
-									<CardTitle>Detalles Personales</CardTitle>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Nombre Real:</span>
-										<span className="font-semibold">{hero.name}</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Alias:</span>
-										<span className="font-semibold">{hero.alias}</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Nombre Completo:</span>
-										<span className="font-semibold">
-											{hero.biography.fullName}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Lugar de Nacimiento:</span>
-										<span className="font-semibold">
-											{hero.biography.placeOfBirth}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Alineamiento:</span>
-										<span className="font-semibold">
-											{hero.biography.alignment === "good" ? "Bueno" : "Malo"}
-										</span>
-									</div>
-									{/* Sexo */}
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Género:</span>
-										<span className="font-semibold">
-											{hero.appearance.gender === "Female"
-												? "Femenino"
-												: hero.appearance.gender === "Male"
-													? "Masculino"
-													: hero.appearance.gender === "None"
-														? "Ninguno"
-														: "Otro"}
-										</span>
-									</div>
-
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Ocupación:</span>
-										<span className="font-semibold">
-											{hero.biography.occupation}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Altura:</span>
-										<span className="font-semibold">
-											{hero.appearance.height}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Peso:</span>
-										<span className="font-semibold">
-											{hero.appearance.weight}
-										</span>
-									</div>
-								</CardContent>
-							</Card>
-
-							<Card>
-								<CardHeader>
-									<CardTitle>Información del Universo</CardTitle>
-								</CardHeader>
-								<CardContent className="space-y-4">
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Categoría:</span>
-										<Badge
-											className={`${getCategoryColor(hero.category)} text-sm text-white`}
-										>
-											{hero.category === "Hero"
-												? "Héroe"
-												: hero.category === "Antihero"
-													? "Antihéroe"
-													: hero.category === "Villain"
-														? "Villano"
-														: hero.category === "Civilian"
-															? "Civl"
-															: hero.category}
-										</Badge>
-									</div>
-									<div className="flex justify-between items-center py-2">
-										<span className="text-gray-700">Estado:</span>
-										<Badge
-											className={`${getStatusColor(hero.status)} text-sm text-white`}
-										>
-											{hero.status === "Active" ? "Activo" : "Fallecido"}
-										</Badge>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Universo:</span>
-										<span className="font-semibold">{hero.universe}</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Primera Aparición:</span>
-										<span className="font-semibold">
-											{hero.firstAppearance}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">
-											Primera Publicación en Comic:
-										</span>
-										<span className="font-semibold">
-											{hero.firstAppearanceComic}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Creadores:</span>
-										<span className="font-semibold">
-											{hero.biography.creators.join(" / ")}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Base de Operaciones:</span>
-										<span className="font-semibold">
-											{hero.biography.baseOfOperations}
-										</span>
-									</div>
-									{/* Raza */}
-									<div className="flex justify-between items-center py-2 border-b">
-										<span className="text-gray-700">Raza:</span>
-										<span className="font-semibold">
-											{hero.appearance.race}
-										</span>
-									</div>
-									<div className="flex justify-between items-center py-2">
-										<span className="text-gray-700">Años Activo:</span>
-										<span className="font-semibold">
-											{new Date().getFullYear() -
-												Number.parseInt(hero.firstAppearance)}{" "}
-											años
-										</span>
-									</div>
-								</CardContent>
-							</Card>
-						</div>
 					</TabsContent>
 				</Tabs>
 			</div>

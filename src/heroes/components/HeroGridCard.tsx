@@ -16,6 +16,20 @@ export const HeroGridCard = ({ hero }: Props) => {
 	const navigate = useNavigate();
 	const { isFavorite, toggleFavorite } = use(FavoriteHeroContext);
 
+	if (!hero) {
+		console.log("Hero undefined:", hero);
+		return null;
+	}
+
+	const stats = hero?.stats ?? {
+		strength: 0,
+		intelligence: 0,
+		speed: 0,
+		durability: 0,
+		power: 0,
+		combat: 0,
+	};
+
 	const handleClick = () => {
 		navigate(`/heroes/${hero.slug}`);
 	};
@@ -108,7 +122,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Fuerza</span>
 						</div>
 						<Progress
-							value={hero.stats.strength * 10}
+							value={stats.strength * 10}
 							className="h-2"
 							activeColor="bg-orange-500"
 						/>
@@ -119,7 +133,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Inteligencia</span>
 						</div>
 						<Progress
-							value={hero.stats.intelligence * 10}
+							value={stats.intelligence * 10}
 							className="h-2"
 							activeColor="bg-blue-500"
 						/>
@@ -130,7 +144,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Velocidad</span>
 						</div>
 						<Progress
-							value={hero.stats.speed * 10}
+							value={stats.speed * 10}
 							className="h-2"
 							activeColor="bg-green-500"
 						/>
@@ -141,7 +155,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 							<span className="text-xs font-medium">Durabilidad</span>
 						</div>
 						<Progress
-							value={hero.stats.durability * 10}
+							value={stats.durability * 10}
 							className="h-2"
 							activeColor="bg-purple-500"
 						/>

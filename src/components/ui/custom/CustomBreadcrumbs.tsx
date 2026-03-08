@@ -23,13 +23,13 @@ interface Props {
 
 export function CustomBreadcrumbs({ currentPage, breadcrumbs }: Props) {
 	return (
-		<Breadcrumb className="my-5">
+		<Breadcrumb className="my-5 ml-3">
 			<BreadcrumbList>
-				<BreadcrumbItem>
+				{/* <BreadcrumbItem>
 					<BreadcrumbLink asChild>
 						<Link to="/">Inicio</Link>
 					</BreadcrumbLink>
-				</BreadcrumbItem>
+				</BreadcrumbItem> */}
 
 				{breadcrumbs?.map((crumb, index) => (
 					// <div className="flex items-center">
@@ -46,12 +46,14 @@ export function CustomBreadcrumbs({ currentPage, breadcrumbs }: Props) {
 					// </div>
 				))}
 
-				<BreadcrumbSeparator>
+				{/* <BreadcrumbSeparator>
 					<SlashIcon />
-				</BreadcrumbSeparator>
+				</BreadcrumbSeparator> */}
 
 				<BreadcrumbItem>
-					<BreadcrumbLink className="text-black">{currentPage}</BreadcrumbLink>
+					<BreadcrumbLink className="text-black text-lg">
+						{currentPage}
+					</BreadcrumbLink>
 				</BreadcrumbItem>
 			</BreadcrumbList>
 		</Breadcrumb>

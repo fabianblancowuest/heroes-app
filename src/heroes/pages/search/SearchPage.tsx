@@ -62,7 +62,7 @@ export const SearchPage = () => {
 				description="Descubre, explora y administra tus superhéroes y villanos favoritos"
 			/>
 
-			<CustomBreadcrumbs currentPage="Buscador de héroes" />
+			<CustomBreadcrumbs currentPage="Buscar superhéroes" />
 
 			{/* Dashboard de stats */}
 			<HeroStats />

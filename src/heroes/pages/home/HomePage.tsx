@@ -52,10 +52,10 @@ export const HomePage = () => {
 			<>
 				{/* Header */}
 				<CustomJumbotron
-					title="Universo de SuperHéroes"
+					title="Universo de Superhéroes"
 					description="Descubre, explora y administra superhéroes y villanos..."
 				/>
-				<CustomBreadcrumbs currentPage="Super Héroes" />
+				<CustomBreadcrumbs currentPage="Superhéroes" />
 
 				{/* Stats Dashboard */}
 				<HeroStats />
