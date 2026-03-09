@@ -1,6 +1,3 @@
-import { getAllHeroesAction } from "@/heroes/actions/get-all-heroes.action";
-import { getHeroAction } from "@/heroes/actions/get-hero.action";
-
 export const teams: string[] = [
 	"Acólitos",
 	"Alpha Flight",
@@ -70,9 +67,3 @@ export const teams: string[] = [
 	"X-Force",
 	"X-Men",
 ];
-
-const characters = async () => {
-	const allHeroes = await getAllHeroesAction();
-
-	return allHeroes.data;
-};
