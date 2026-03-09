@@ -19,7 +19,7 @@ export const CustomMenu = () => {
 
 	return (
 		<NavigationMenu className="py-5">
-			<NavigationMenuList>
+			<NavigationMenuList className="flex justify-start">
 				{/* Home */}
 				<NavigationMenuItem>
 					<NavigationMenuLink
