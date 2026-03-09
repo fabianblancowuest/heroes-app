@@ -13,9 +13,6 @@ import {
 	Crosshair,
 	ShieldOff,
 	AlertTriangle,
-	Skull,
-	Slash,
-	MinusCircle,
 	XCircle,
 } from "lucide-react";
 import { getHeroAction } from "../../actions/get-hero.action";

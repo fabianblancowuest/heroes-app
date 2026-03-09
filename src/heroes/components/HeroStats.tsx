@@ -60,22 +60,30 @@ export const HeroStats = () => {
 				title={"Los más fuertes"}
 				icon={<Zap className="h-4 w-4 text-muted-foreground" />}
 			>
-				{summary?.strongestHeroes.slice(0, 5).map((hero) => (
-					<p key={hero.alias} className="text-md font-semibold">
-						{hero.alias}
+				{summary?.strongestHeroes?.slice(0, 5).map((hero) => (
+					<p
+						key={hero?.alias || hero?.id || Math.random()}
+						className="text-md font-semibold"
+					>
+						{hero?.alias || "Sin alias"}
 					</p>
 				))}
+
 				<p className="text-xs text-muted-foreground">Fuerza: 10/10</p>
 			</HeroStatCard>
 			<HeroStatCard
 				title={"Los más inteligentes"}
 				icon={<Lightbulb className="h-4 w-4 text-muted-foreground" />}
 			>
-				{summary?.smartestHeroes.slice(0, 5).map((hero) => (
-					<p key={hero.alias} className="text-md font-semibold">
-						{hero.alias}
+				{summary?.smartestHeroes?.slice(0, 5).map((hero) => (
+					<p
+						key={hero?.alias || hero?.id || Math.random()}
+						className="text-md font-semibold"
+					>
+						{hero?.alias || "Sin alias"}
 					</p>
 				))}
+
 				<div className="text-lg font-bold "></div>
 				<p className="text-xs text-muted-foreground">Inteligencia: 10/10</p>
 			</HeroStatCard>
