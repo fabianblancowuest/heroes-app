@@ -11,6 +11,12 @@ import {
 	Award,
 	Swords,
 	Crosshair,
+	ShieldOff,
+	AlertTriangle,
+	Skull,
+	Slash,
+	MinusCircle,
+	XCircle,
 } from "lucide-react";
 import { getHeroAction } from "../../actions/get-hero.action";
 import { Navigate, useParams } from "react-router";
@@ -18,7 +24,8 @@ import { useQuery } from "@tanstack/react-query";
 import "@/index.css";
 import { CircularProgress } from "@/components/ui/circular-progress";
 import { LinearProgressSVG } from "@/components/ui/linear-progress";
-import { dataTeams } from "./utils/getTeamMessage";
+import { teamPhrases } from "./utils/getTeamMessage";
+import { getCategoryColor, getStatusColor } from "./utils/getColors";
 
 export const HeroPage = () => {
 	// Animación barras circulares de habilidades
@@ -45,40 +52,9 @@ export const HeroPage = () => {
 		hero.stats.strength +
 		hero.stats.intelligence +
 		hero.stats.speed +
-		hero.stats.durability;
-	const averagePower = Math.round((totalPower / 4) * 10);
-
-	const getStatusColor = (status: string) => {
-		switch (status.toLowerCase()) {
-			case "activo":
-			case "active":
-				return "bg-green-500";
-			case "inactivo":
-			case "inactive":
-				return "bg-gray-500";
-			case "retirado":
-			case "retired":
-				return "bg-blue-500";
-			default:
-				return "bg-gray-500";
-		}
-	};
-
-	const getCategoryColor = (category: string) => {
-		switch (category.toLowerCase()) {
-			case "héroe":
-			case "hero":
-				return "bg-blue-500";
-			case "villano":
-			case "villain":
-				return "bg-red-500";
-			case "antihéroe":
-			case "antihero":
-				return "bg-purple-500";
-			default:
-				return "bg-gray-500";
-		}
-	};
+		hero.stats.durability +
+		hero.stats.combat;
+	const averagePower = Math.round((totalPower / 5) * 10);
 
 	const teams = hero.connections?.groupAffiliation ?? [];
 
@@ -164,6 +140,10 @@ export const HeroPage = () => {
 						<TabsTrigger value="powers" className="flex items-center gap-2">
 							<Zap className="w-4 h-4" />
 							Poderes
+						</TabsTrigger>
+						<TabsTrigger value="weaknesses" className="flex items-center gap-2">
+							<AlertTriangle className="w-4 h-4" />
+							Debilidades
 						</TabsTrigger>
 						<TabsTrigger value="weapons" className="flex items-center gap-2">
 							<Crosshair className="w-4 h-4" />
@@ -347,23 +327,29 @@ export const HeroPage = () => {
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
-								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-									{hero.weapons.map((power, index) => (
-										<div
-											key={index}
-											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
-										>
-											<div className="flex items-center gap-3">
-												<div className="bg-blue-500 p-2 rounded-full">
-													<Crosshair className="w-4 h-4 text-white" />
+								{hero.weapons.length === 0 ? (
+									<div className="text-lg font-semibold flex items-center gap-3 justify-center text-red-700">
+										<XCircle />
+									</div>
+								) : (
+									<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+										{hero.weapons.map((power, index) => (
+											<div
+												key={index}
+												className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
+											>
+												<div className="flex items-center gap-3">
+													<div className="bg-blue-500 p-2 rounded-full">
+														<Crosshair className="w-4 h-4 text-white" />
+													</div>
+													<span className="font-medium text-blue-900">
+														{power}
+													</span>
 												</div>
-												<span className="font-medium text-blue-900">
-													{power}
-												</span>
 											</div>
-										</div>
-									))}
-								</div>
+										))}
+									</div>
+								)}
 							</CardContent>
 						</Card>
 					</TabsContent>
@@ -373,7 +359,9 @@ export const HeroPage = () => {
 							<CardHeader>
 								<CardTitle className="flex items-center gap-2">
 									<Zap className="w-6 h-6 text-yellow-500" />
-									Superpoderes
+									{hero.category === "Civilian"
+										? "Habilidades"
+										: "Superpoderes"}
 								</CardTitle>
 							</CardHeader>
 							<CardContent>
@@ -389,6 +377,36 @@ export const HeroPage = () => {
 												</div>
 												<span className="font-medium text-blue-900">
 													{power}
+												</span>
+											</div>
+										</div>
+									))}
+								</div>
+							</CardContent>
+						</Card>
+					</TabsContent>
+					{/* Debilidades */}
+					<TabsContent value="weaknesses">
+						<Card>
+							<CardHeader>
+								<CardTitle className="flex items-center gap-2">
+									<ShieldOff className="w-6 h-6 text-yellow-500" />
+									Debilidades
+								</CardTitle>
+							</CardHeader>
+							<CardContent>
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+									{hero.weaknesses.map((weakness, index) => (
+										<div
+											key={index}
+											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
+										>
+											<div className="flex items-center gap-3">
+												<div className="bg-blue-500 p-2 rounded-full">
+													<AlertTriangle className="w-4 h-4 text-white" />
+												</div>
+												<span className="font-medium text-blue-900">
+													{weakness}
 												</span>
 											</div>
 										</div>
@@ -417,7 +435,7 @@ export const HeroPage = () => {
 												<div key={team}>{team}</div>
 											</h3>
 											<p className="text-gray-700 max-w-60 mx-auto">
-												{dataTeams[team]}
+												{teamPhrases[team]}
 											</p>
 										</div>
 									</CardContent>
@@ -437,14 +455,7 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Fuerza</h3>
-									{/* <div className="text-2xl font-bold text-orange-700 mb-2">
-										{hero.strength}
-									</div> */}
-									{/* <Progress
-										value={hero.strength * 10}
-										className="h-2 mobile-progress"
-										activeColor="bg-orange-700"
-									/> */}
+
 									<CircularProgress
 										value={hero.stats.strength * 10}
 										stroke={12}
@@ -465,14 +476,7 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Inteligencia</h3>
-									{/* <div className="text-2xl font-bold text-blue-700 mb-2">
-										{hero.intelligence}
-									</div> */}
-									{/* <Progress
-										value={hero.intelligence * 10}
-										className="h-2 mobile-progress"
-										activeColor="bg-blue-700"
-									/> */}
+
 									<CircularProgress
 										value={hero.stats.intelligence * 10}
 										stroke={12}
@@ -493,14 +497,7 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Velocidad</h3>
-									{/* <div className="text-2xl font-bold text-green-700 mb-2">
-										{hero.speed}
-									</div>
-									<Progress
-										value={hero.speed * 10}
-										className="h-2 mobile-progress"
-										activeColor="bg-green-700"
-									/> */}
+
 									<CircularProgress
 										value={hero.stats.speed * 10}
 										stroke={12}
@@ -521,14 +518,7 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Resistencia</h3>
-									{/* <div className="text-2xl font-bold text-purple-700 mb-2">
-										{hero.durability}
-									</div> */}
-									{/* <Progress
-										value={hero.durability * 10}
-										className="h-2 mobile-progress"
-										activeColor="bg-purple-700"
-									/> */}
+
 									<CircularProgress
 										value={hero.stats.speed * 10}
 										stroke={12}
@@ -548,14 +538,7 @@ export const HeroPage = () => {
 										</div>
 									</div>
 									<h3 className="font-semibold text-m mb-2">Combate</h3>
-									{/* <div className="text-2xl font-bold text-purple-700 mb-2">
-										{hero.durability}
-									</div> */}
-									{/* <Progress
-										value={hero.durability * 10}
-										className="h-2 mobile-progress"
-										activeColor="bg-purple-700"
-									/> */}
+
 									<CircularProgress
 										value={hero.stats.combat * 10}
 										stroke={12}
@@ -612,11 +595,6 @@ export const HeroPage = () => {
 											Fuerza
 										</div>
 										<div className="flex-1">
-											{/* <AnimatedProgress
-												value={hero.strength * 10}
-												className="h-3"
-												activeColor="bg-orange-700"
-											/> */}
 											<LinearProgressSVG
 												value={hero.stats.strength * 10}
 												barClass="text-orange-700"
@@ -632,11 +610,6 @@ export const HeroPage = () => {
 											Inteligencia
 										</div>
 										<div className="flex-1">
-											{/* <AnimatedProgress
-												value={hero.intelligence * 10}
-												className="h-3"
-												activeColor="bg-blue-700"
-											/> */}
 											<LinearProgressSVG
 												value={hero.stats.intelligence * 10}
 												barClass="text-blue-700"
@@ -652,11 +625,6 @@ export const HeroPage = () => {
 											Velocidad
 										</div>
 										<div className="flex-1">
-											{/* <AnimatedProgress
-												value={hero.speed * 10}
-												className="h-3"
-												activeColor="bg-green-700"
-											/> */}
 											<LinearProgressSVG
 												value={hero.stats.speed * 10}
 												barClass="text-green-700"
@@ -672,11 +640,6 @@ export const HeroPage = () => {
 											Resistencia
 										</div>
 										<div className="flex-1">
-											{/* <AnimatedProgress
-												value={hero.durability * 10}
-												className="h-3"
-												activeColor="bg-purple-700"
-											/> */}
 											<LinearProgressSVG
 												value={hero.stats.durability * 10}
 												barClass="text-purple-700"
@@ -692,11 +655,6 @@ export const HeroPage = () => {
 											Combate
 										</div>
 										<div className="flex-1">
-											{/* <AnimatedProgress
-												value={hero.strength * 10}
-												className="h-3"
-												activeColor="bg-orange-700"
-											/> */}
 											<LinearProgressSVG
 												value={hero.stats.combat * 10}
 												barClass="text-red-700"

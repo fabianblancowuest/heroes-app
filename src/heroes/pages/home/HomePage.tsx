@@ -10,8 +10,10 @@ import { useHeroSummary } from "@/heroes/hooks/useHeroSummary";
 import { usePaginatedHero } from "@/heroes/hooks/usePaginatedHero";
 import { FavoriteHeroContext } from "@/heroes/context/FavoriteHeroContext";
 import "@/index.css";
+import { clearCacheOnce } from "@/utils/clearCacheOnce";
 
 export const HomePage = () => {
+	clearCacheOnce();
 	// TODO: para más adelante hacer un custom hook useHomePage o useQueryParameters para reducir lógica del componente
 	const [searchParams, setSearchParams] = useSearchParams();
 
@@ -56,10 +58,8 @@ export const HomePage = () => {
 					description="Descubre, explora y administra superhéroes y villanos..."
 				/>
 				<CustomBreadcrumbs currentPage="Superhéroes" />
-
 				{/* Stats Dashboard */}
 				<HeroStats />
-
 				{/* Tabs */}
 				<Tabs value={selectedTab} className="mb-8">
 					<TabsList className="grid w-full grid-cols-4 flexible">
@@ -128,7 +128,6 @@ export const HomePage = () => {
 						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
 					</TabsContent>
 				</Tabs>
-
 				{/* Pagination */}
 				{selectedTab !== "favorites" && (
 					<CustomPagination totalPages={HeroesResponse?.pages ?? 1} />

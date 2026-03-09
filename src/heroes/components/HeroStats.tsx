@@ -61,7 +61,9 @@ export const HeroStats = () => {
 				icon={<Zap className="h-4 w-4 text-muted-foreground" />}
 			>
 				{summary?.strongestHeroes.slice(0, 5).map((hero) => (
-					<p className="text-md font-semibold">{hero.alias}</p>
+					<p key={hero.alias} className="text-md font-semibold">
+						{hero.alias}
+					</p>
 				))}
 				<p className="text-xs text-muted-foreground">Fuerza: 10/10</p>
 			</HeroStatCard>
@@ -70,7 +72,9 @@ export const HeroStats = () => {
 				icon={<Lightbulb className="h-4 w-4 text-muted-foreground" />}
 			>
 				{summary?.smartestHeroes.slice(0, 5).map((hero) => (
-					<p className="text-md font-semibold">{hero.alias}</p>
+					<p key={hero.alias} className="text-md font-semibold">
+						{hero.alias}
+					</p>
 				))}
 				<div className="text-lg font-bold "></div>
 				<p className="text-xs text-muted-foreground">Inteligencia: 10/10</p>
