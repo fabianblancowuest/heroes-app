@@ -18,8 +18,8 @@ export const CustomMenu = () => {
 	};
 
 	return (
-		<NavigationMenu className="py-5">
-			<NavigationMenuList className="flex justify-start">
+		<NavigationMenu className="py-5 nav-bar">
+			<NavigationMenuList className="flex justify-center">
 				{/* Home */}
 				<NavigationMenuItem>
 					<NavigationMenuLink
@@ -46,7 +46,7 @@ export const CustomMenu = () => {
 					>
 						{/* <div className="button text-center"> */}
 						<Link className="button" to="/search">
-							Buscar Superheroes
+							Buscar personaje
 						</Link>
 						{/* </div> */}
 					</NavigationMenuLink>

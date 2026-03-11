@@ -1,5 +1,5 @@
 import { CustomMenu } from "@/components/ui/custom/CustomMenu";
-import { Outlet } from "react-router";
+import { Outlet, ScrollRestoration } from "react-router";
 
 export const HeroesLayout = () => {
 	return (
@@ -8,6 +8,9 @@ export const HeroesLayout = () => {
 				<CustomMenu />
 				<Outlet />
 			</div>
+
+			{/* Para que el scroll siempre vaya arriba */}
+			<ScrollRestoration />
 		</div>
 	);
 };

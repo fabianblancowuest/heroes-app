@@ -1,4 +1,4 @@
-import { use, useMemo } from "react";
+import { use, useEffect, useMemo, useRef } from "react";
 import { useSearchParams } from "react-router";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CustomPagination } from "../../../components/ui/custom/CustomPagination";
@@ -16,11 +16,41 @@ export const HomePage = () => {
 	clearCacheOnce();
 	// TODO: para más adelante hacer un custom hook useHomePage o useQueryParameters para reducir lógica del componente
 	const [searchParams, setSearchParams] = useSearchParams();
+	const contentRef = useRef<HTMLDivElement | null>(null);
 
 	const activeTab = searchParams.get("tab") ?? "all";
 	const page = searchParams.get("page") ?? "1";
 	const limit = searchParams.get("limit") ?? "6";
 	const category = searchParams.get("category") ?? "all";
+
+	useEffect(() => {
+		contentRef.current?.scrollIntoView({
+			behavior: "instant",
+			block: "start",
+		});
+	}, [activeTab, page, category]);
+
+	// useEffect(() => {
+	// 	const grid = document.querySelector("#hero-grid");
+
+	// 	if (!grid) return;
+
+	// 	const y = grid.getBoundingClientRect().top + window.scrollY - 20;
+
+	// 	window.scrollTo({
+	// 		top: y,
+	// 		behavior: "instant",
+	// 	});
+	// }, [activeTab, page, category]);
+
+	// useEffect(() => {
+	// 	const offset = 600; // altura total de Jumbotron + Breadcrumbs + Stats
+
+	// 	window.scrollTo({
+	// 		top: offset,
+	// 		behavior: "instant",
+	// 	});
+	// }, [activeTab, page, category]);
 
 	const selectedTab = useMemo(() => {
 		const validTabs = [
@@ -48,6 +78,8 @@ export const HomePage = () => {
 	const { data: summary } = useHeroSummary();
 
 	const { favoriteCount, favorites } = use(FavoriteHeroContext);
+
+	console.log(HeroesResponse?.heroes);
 
 	return (
 		<>
@@ -101,33 +133,37 @@ export const HomePage = () => {
 							Civiles ({summary?.civilianCount})
 						</TabsTrigger>
 					</TabsList>
-
-					<TabsContent value="all">
-						{/* Mostrar todos los personajes */}
-						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
-					</TabsContent>
-					<TabsContent value="favorites">
-						{/* Mostrar todos los personajes favoritos */}
-						<HeroGrid heroes={favorites ?? []} />
-						{/* <HeroGrid heroes={HeroesResponse?.heroes ?? []} /> */}
-					</TabsContent>
-					<TabsContent value="heroes">
-						{/* Mostrar todos los héroes */}
-						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
-					</TabsContent>
-					<TabsContent value="villains">
-						{/* Mostrar todos los villanos */}
-						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
-					</TabsContent>
-					<TabsContent value="antiheroes">
-						{/* Mostrar todos los antihéroes */}
-						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
-					</TabsContent>
-					<TabsContent value="civilians">
-						{/* Mostrar todos los civiles */}
-						<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
-					</TabsContent>
+					<div ref={contentRef}>
+						<TabsContent value="all">
+							{/* Mostrar todos los personajes */}
+							<div id="hero-grid">
+								<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+							</div>
+						</TabsContent>
+						<TabsContent value="favorites">
+							{/* Mostrar todos los personajes favoritos */}
+							<HeroGrid heroes={favorites ?? []} />
+							{/* <HeroGrid heroes={HeroesResponse?.heroes ?? []} /> */}
+						</TabsContent>
+						<TabsContent value="heroes">
+							{/* Mostrar todos los héroes */}
+							<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+						</TabsContent>
+						<TabsContent value="villains">
+							{/* Mostrar todos los villanos */}
+							<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+						</TabsContent>
+						<TabsContent value="antiheroes">
+							{/* Mostrar todos los antihéroes */}
+							<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+						</TabsContent>
+						<TabsContent value="civilians">
+							{/* Mostrar todos los civiles */}
+							<HeroGrid heroes={HeroesResponse?.heroes ?? []} />
+						</TabsContent>
+					</div>
 				</Tabs>
+
 				{/* Pagination */}
 				{selectedTab !== "favorites" && (
 					<CustomPagination totalPages={HeroesResponse?.pages ?? 1} />

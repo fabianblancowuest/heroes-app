@@ -574,6 +574,10 @@ export const HeroPage = () => {
 											<span>Durabilidad</span>
 											<div className="box bg-purple-700"></div>
 										</div>
+										<div>
+											<span>Combate</span>
+											<div className="box bg-red-700"></div>
+										</div>
 									</section>
 								</div>
 							</CardHeader>
