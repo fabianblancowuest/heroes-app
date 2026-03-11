@@ -56,7 +56,7 @@ export const charactersOne: Hero[] = [
 		description:
 			"El Último Hijo de Krypton, protector de la Tierra y símbolo de esperanza para toda la humanidad.",
 		image: "1.jpeg",
-		image2: "1_alt.jpeg",
+		image2: "1_alt.jpg",
 		firstAppearance: "1938",
 		firstAppearanceComic: "Action Comics #1 (1938)",
 		status: "Active",
@@ -123,7 +123,7 @@ export const charactersOne: Hero[] = [
 		description:
 			"El Caballero Oscuro de Ciudad Gótica, que utiliza el miedo como arma contra el crimen y la corrupción.",
 		image: "2.jpeg",
-		image2: "2_alt.jpeg",
+		image2: "2_alt.jpg",
 		firstAppearance: "1939",
 		firstAppearanceComic: "Detective Comics #27 (1939)",
 		status: "Active",
@@ -195,7 +195,7 @@ export const charactersOne: Hero[] = [
 		description:
 			"Princesa amazona y guerrera, campeona de la verdad, la justicia y la igualdad.",
 		image: "3.jpeg",
-		image2: "3_alt.jpeg",
+		image2: "3_alt.jpg",
 		firstAppearance: "1941",
 		firstAppearanceComic: "All Star Comics #8 (1941)",
 		status: "Active",
@@ -258,7 +258,7 @@ export const charactersOne: Hero[] = [
 		description:
 			"El hombre más rápido del mundo, protector de Central City y guardián de la línea temporal.",
 		image: "4.jpeg",
-		image2: "4_alt.jpeg",
+		image2: "4_alt.jpg",
 		firstAppearance: "1956",
 		firstAppearanceComic: "Showcase #4 (1956)",
 		status: "Active",
@@ -388,7 +388,7 @@ export const charactersOne: Hero[] = [
 		description:
 			"Magnate e inventor genio que utiliza su tecnología para proteger el mundo.",
 		image: "6-.jpg",
-		image2: "6-_alt.jpg",
+		image2: "6_alt.jpg",
 		firstAppearance: "1963",
 		firstAppearanceComic: "Tales of Suspense #39 (1963)",
 		status: "Active",
@@ -573,7 +573,7 @@ export const charactersOne: Hero[] = [
 		description:
 			"Piloto de pruebas elegido por el Cuerpo de Linternas Verdes para proteger el sector espacial 2814.",
 		image: "11.jpeg",
-		image2: "11_alt.jpeg",
+		image2: "11_alt.jpg",
 		firstAppearance: "1959",
 		firstAppearanceComic: "Showcase #22 (1959)",
 		status: "Active",

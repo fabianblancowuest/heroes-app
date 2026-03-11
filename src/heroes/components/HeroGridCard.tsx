@@ -7,6 +7,7 @@ import { Heart, Eye, Zap, Brain, Gauge, Shield } from "lucide-react";
 import type { Hero } from "../types/hero.interface";
 import { useNavigate } from "react-router";
 import { FavoriteHeroContext } from "../context/FavoriteHeroContext";
+import { getHeroImage } from "@/utils/heroImage";
 
 interface Props {
 	hero: Hero;
@@ -40,7 +41,7 @@ export const HeroGridCard = ({ hero }: Props) => {
 		<Card className="cursor-pointer group overflow-hidden hover:shadow-xl transition-all duration-300 hover:-translate-y-1 bg-linear-to-br from-white to-gray-50">
 			<div className="relative h-64">
 				<img
-					src={hero.image}
+					src={getHeroImage(hero.image)}
 					alt={hero.name}
 					className="object-cover transition-all duration-500 group-hover:scale-110 absolute -top-7.5 w-full h-102.5"
 					onClick={handleClick}

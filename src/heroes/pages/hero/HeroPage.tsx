@@ -15,7 +15,6 @@ import {
 	AlertTriangle,
 	XCircle,
 } from "lucide-react";
-import { getHeroAction } from "../../actions/get-hero.action";
 import { Navigate, useParams } from "react-router";
 import { useQuery } from "@tanstack/react-query";
 import "@/index.css";
@@ -23,15 +22,14 @@ import { CircularProgress } from "@/components/ui/circular-progress";
 import { LinearProgressSVG } from "@/components/ui/linear-progress";
 import { teamPhrases } from "./utils/getTeamMessage";
 import { getCategoryColor, getStatusColor } from "./utils/getColors";
+import { useHero } from "@/heroes/hooks/useHero";
 
 export const HeroPage = () => {
-	// Animación barras circulares de habilidades
-
 	const { idSlug = "" } = useParams();
 
 	const { data: hero, isError } = useQuery({
 		queryKey: ["heroes", idSlug],
-		queryFn: () => getHeroAction(idSlug),
+		queryFn: () => useHero(idSlug),
 		retry: false,
 	});
 
@@ -299,7 +297,7 @@ export const HeroPage = () => {
 										<span className="text-gray-700 w-1/2">Creadores:</span>
 
 										<div className="flex flex-col w-1/2 text-right">
-											{hero.biography.creators.map((creator) => (
+											{hero.biography.creators.map((creator: string) => (
 												<span key={creator} className="font-semibold">
 													{creator}
 												</span>
@@ -348,7 +346,7 @@ export const HeroPage = () => {
 									</div>
 								) : (
 									<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-										{hero.weapons.map((power, index) => (
+										{hero.weapons.map((power: string, index: number) => (
 											<div
 												key={index}
 												className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
@@ -381,7 +379,7 @@ export const HeroPage = () => {
 							</CardHeader>
 							<CardContent>
 								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-									{hero.powers.map((power, index) => (
+									{hero.powers.map((power: string, index: number) => (
 										<div
 											key={index}
 											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
@@ -411,7 +409,7 @@ export const HeroPage = () => {
 							</CardHeader>
 							<CardContent>
 								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-									{hero.weaknesses.map((weakness, index) => (
+									{hero.weaknesses.map((weakness: string, index: number) => (
 										<div
 											key={index}
 											className="bg-linear-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200"
@@ -440,7 +438,7 @@ export const HeroPage = () => {
 								</CardTitle>
 							</CardHeader>
 							<div className="flex justify-evenly flex-wrap">
-								{teams.map((team) => (
+								{teams.map((team: string) => (
 									<CardContent>
 										<div className="text-center py-8">
 											<div className="bg-green-100 p-6 rounded-full w-21 h-21 mx-auto mb-2 flex items-center justify-center">

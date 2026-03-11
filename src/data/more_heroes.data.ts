@@ -393,12 +393,12 @@ export const moreHeroes: Hero[] = [
 			weight: "79 kg",
 		},
 		stats: {
-			intelligence: 80,
-			strength: 30,
-			speed: 35,
-			durability: 35,
-			power: 25,
-			combat: 100,
+			intelligence: 8,
+			strength: 3,
+			speed: 3.5,
+			durability: 3.5,
+			power: 2.5,
+			combat: 10,
 		},
 		connections: {
 			groupAffiliation: ["Avengers", "Heroes for Hire"],
