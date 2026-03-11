@@ -9,5 +9,6 @@ export const getHeroAction = async (idSlug: string) => {
 	return {
 		...hero,
 		image: `${BASE_URL}/images/${hero.image}`,
+		image2: `${BASE_URL}/images/${hero.image2}`,
 	};
 };

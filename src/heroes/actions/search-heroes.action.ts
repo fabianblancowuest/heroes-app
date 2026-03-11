@@ -67,6 +67,7 @@ export const searchHeroesAction = async (
 		return data.map((hero) => ({
 			...hero,
 			image: `${VITE_API_URL}/images/${hero.image}`,
+			image2: `${VITE_API_URL}/images/${hero.image2}`,
 		}));
 	} catch (error) {
 		console.error("Error buscando héroes:", error);

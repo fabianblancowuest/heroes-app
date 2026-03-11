@@ -55,6 +55,7 @@ export const getAllHeroesAction = async (limit = 200): Promise<Hero[]> => {
 		return heroesArray.map((hero) => ({
 			...hero,
 			image: `${BASE_URL}/images/${hero.image}`,
+			image2: `${BASE_URL}/images/${hero.image2}`,
 		}));
 	} catch (error) {
 		console.error("Error al traer todos los héroes:", error);

@@ -87,7 +87,7 @@ export const SearchControls = () => {
 						variant="outline"
 						onClick={() => {
 							if (inputRef.current?.value === "") {
-								return toast.warning("Debe ingresar un héroe");
+								return toast.warning("Ingrese el personaje que desea buscar");
 							}
 							return setQueryParams("name", inputRef.current?.value ?? "");
 						}}

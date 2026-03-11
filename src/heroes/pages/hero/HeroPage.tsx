@@ -71,11 +71,17 @@ export const HeroPage = () => {
 					<div className="flex flex-col md:flex-row items-center gap-8">
 						<div className="relative">
 							<img
-								src={hero.image || "/placeholder.svg"}
+								src={hero.image2 || hero.image || "/images/placeholder.svg"}
 								alt={hero.alias}
 								width={200}
 								height={200}
 								className="rounded-full border-4 border-white/20 shadow-2xl"
+								// En caso que no encuentre la imagen2 da error y carga la imagen existente
+								onError={(e) => {
+									if (e.currentTarget.src !== hero.image) {
+										e.currentTarget.src = hero.image;
+									}
+								}}
 							/>
 							<div className="absolute -top-2 -right-2">
 								<div className="bg-yellow-400 text-black rounded-full p-2">
