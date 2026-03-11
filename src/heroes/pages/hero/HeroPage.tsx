@@ -55,6 +55,14 @@ export const HeroPage = () => {
 
 	const teams = hero.connections?.groupAffiliation ?? [];
 
+	if (hero.stats.combat > 10) {
+		hero.stats.combat /= 10;
+		hero.stats.durability /= 10;
+		hero.stats.speed /= 10;
+		hero.stats.intelligence /= 10;
+		hero.stats.strength /= 10;
+	}
+
 	return (
 		<div className="min-h-screen bg-gray-50">
 			{/* Header Banner */}
@@ -235,27 +243,31 @@ export const HeroPage = () => {
 								<CardContent className="space-y-4 span-dividido">
 									<div className="flex justify-between items-center py-2 border-b">
 										<span className="text-gray-700">Categoría:</span>
-										<Badge
-											className={`${getCategoryColor(hero.category)} text-sm text-white max-w-15`}
-										>
-											{hero.category === "Hero"
-												? "Héroe"
-												: hero.category === "Antihero"
-													? "Antihéroe"
-													: hero.category === "Villain"
-														? "Villano"
-														: hero.category === "Civilian"
-															? "Civl"
-															: hero.category}
-										</Badge>
+										<span className="text-right">
+											<Badge
+												className={`${getCategoryColor(hero.category)} text-sm text-white`}
+											>
+												{hero.category === "Hero"
+													? "Héroe"
+													: hero.category === "Antihero"
+														? "Antihéroe"
+														: hero.category === "Villain"
+															? "Villano"
+															: hero.category === "Civilian"
+																? "Civil"
+																: hero.category}
+											</Badge>
+										</span>
 									</div>
 									<div className="flex justify-between items-center py-2">
 										<span className="text-gray-700">Estado:</span>
-										<Badge
-											className={`${getStatusColor(hero.status)} text-sm text-white max-w-15`}
-										>
-											{hero.status === "Active" ? "Activo" : "Fallecido"}
-										</Badge>
+										<span className="text-right">
+											<Badge
+												className={`${getStatusColor(hero.status)} text-sm text-white`}
+											>
+												{hero.status === "Active" ? "Activo" : "Fallecido"}
+											</Badge>
+										</span>
 									</div>
 									<div className="flex justify-between items-center py-2 border-b">
 										<span className="text-gray-700">Universo:</span>
@@ -517,7 +529,7 @@ export const HeroPage = () => {
 									<h3 className="font-semibold text-m mb-2">Resistencia</h3>
 
 									<CircularProgress
-										value={hero.stats.speed * 10}
+										value={hero.stats.durability * 10}
 										stroke={12}
 										size={100}
 										color="text-purple-700"

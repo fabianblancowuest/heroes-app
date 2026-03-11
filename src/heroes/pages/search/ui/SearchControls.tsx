@@ -18,6 +18,7 @@ import {
 	SelectValue,
 } from "@/components/ui/select";
 import { teams } from "../data/teams.data";
+import { toast } from "sonner";
 
 export const SearchControls = () => {
 	const [searchParams, setSearchParams] = useSearchParams();
@@ -29,6 +30,7 @@ export const SearchControls = () => {
 	const selectedSpeed = Number(searchParams.get("speed") ?? "0");
 	const selectedDurability = Number(searchParams.get("durability") ?? "0");
 	const selectedIntelligence = Number(searchParams.get("intelligence") ?? "0");
+	const selectedCombat = Number(searchParams.get("combat") ?? "0");
 
 	const selectedTeam = searchParams.get("team") ?? "all";
 	const selectedCategory = searchParams.get("category") ?? "all";
@@ -83,9 +85,12 @@ export const SearchControls = () => {
 					<Button
 						className="h-12"
 						variant="outline"
-						onClick={() =>
-							setQueryParams("name", inputRef.current?.value ?? "")
-						}
+						onClick={() => {
+							if (inputRef.current?.value === "") {
+								return toast.warning("Debe ingresar un héroe");
+							}
+							return setQueryParams("name", inputRef.current?.value ?? "");
+						}}
 					>
 						<Search />
 						Buscar
@@ -280,6 +285,23 @@ export const SearchControls = () => {
 									value={[selectedDurability]}
 									onValueChange={(value) =>
 										setQueryParams("durability", value[0].toString())
+									}
+									max={10}
+									step={1}
+								/>
+							</div>
+
+							{/* Combat */}
+							<div className="mt-4">
+								<label className="text-sm font-medium">
+									Combate mínimo: {selectedCombat}/10
+								</label>
+
+								<Slider
+									className="mt-4 cursor-pointer"
+									value={[selectedCombat]}
+									onValueChange={(value) =>
+										setQueryParams("combat", value[0].toString())
 									}
 									max={10}
 									step={1}

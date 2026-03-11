@@ -6,6 +6,8 @@ import { HeroGrid } from "@/heroes/components/HeroGrid";
 import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "react-router";
 import { searchHeroesAction } from "@/heroes/actions/search-heroes.action";
+import { useEffect, useMemo } from "react";
+import { toast } from "sonner";
 
 export const SearchPage = () => {
 	const [searchParams] = useSearchParams();
@@ -30,30 +32,54 @@ export const SearchPage = () => {
 	const intelligence = searchParams.get("intelligence")
 		? Number(searchParams.get("intelligence"))
 		: undefined;
+	const combat = searchParams.get("combat")
+		? Number(searchParams.get("combat"))
+		: undefined;
 
 	// Limpiar filtros vacíos o "all"
-	const filters = Object.fromEntries(
-		Object.entries({
-			name,
-			team,
-			category,
-			universe,
-			status,
-			strength,
-			speed,
-			durability,
-			intelligence,
-		}).filter(
-			([_, value]) => value !== undefined && value !== "" && value !== "all",
-		),
-	);
+	const filters = useMemo(() => {
+		return Object.fromEntries(
+			Object.entries({
+				name,
+				team,
+				category,
+				universe,
+				status,
+				strength,
+				speed,
+				durability,
+				intelligence,
+				combat,
+			}).filter(
+				([_, value]) => value !== undefined && value !== "" && value !== "all",
+			),
+		);
+	}, [
+		name,
+		team,
+		category,
+		universe,
+		status,
+		strength,
+		speed,
+		durability,
+		intelligence,
+		combat,
+	]);
 
 	// Buscar héroes con React Query
-	const { data: heroes = [] } = useQuery({
+	const { data: heroes = [], isFetching } = useQuery({
 		queryKey: ["search", filters],
 		queryFn: () => searchHeroesAction(filters),
 		staleTime: 1000 * 60 * 5, // 5 minutos
+		enabled: Object.keys(filters).length > 0,
 	});
+
+	useEffect(() => {
+		if (!isFetching && Object.keys(filters).length > 0 && heroes.length === 0) {
+			toast.warning("No se encontraron resultados");
+		}
+	}, [heroes, filters, isFetching]);
 
 	return (
 		<>

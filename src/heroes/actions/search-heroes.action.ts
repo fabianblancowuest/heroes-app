@@ -13,6 +13,7 @@ interface SearchOptions {
 	intelligence?: string;
 	speed?: string;
 	durability?: string;
+	combat?: string;
 	team?: string;
 }
 
@@ -28,6 +29,7 @@ export const searchHeroesAction = async (
 		intelligence,
 		speed,
 		durability,
+		combat,
 		team,
 	} = options;
 
@@ -42,6 +44,7 @@ export const searchHeroesAction = async (
 			intelligence,
 			speed,
 			durability,
+			combat,
 			team,
 		}).filter(([_, value]) => value !== undefined && value !== ""),
 	);
